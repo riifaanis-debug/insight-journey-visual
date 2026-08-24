@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import videoAsset from "../assets/cpf-framework.mp4.asset.json";
+import { JourneyPlayer } from "../components/JourneyPlayer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
