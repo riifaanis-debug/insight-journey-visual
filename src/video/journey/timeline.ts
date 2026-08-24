@@ -52,7 +52,7 @@ export const stationPos = (i: number): [number, number] => {
 const DEFS: ChapterDef[] = [
   {
     id: "intro",
-    dur: 140,
+    dur: 590,
     part: "special",
     station: null,
     zoom: 0.34,
@@ -60,7 +60,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s01",
-    dur: 200,
+    dur: 660,
     part: "cycle",
     station: 0,
     zoom: 0.94,
@@ -75,7 +75,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s02",
-    dur: 185,
+    dur: 560,
     part: "cycle",
     station: 1,
     zoom: 0.96,
@@ -90,7 +90,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s03",
-    dur: 190,
+    dur: 675,
     part: "cycle",
     station: 2,
     zoom: 0.9,
@@ -105,7 +105,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s04",
-    dur: 240,
+    dur: 1575,
     part: "cycle",
     station: 3,
     zoom: 0.7,
@@ -120,7 +120,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s05",
-    dur: 215,
+    dur: 940,
     part: "cycle",
     station: 4,
     zoom: 0.88,
@@ -135,7 +135,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s06",
-    dur: 185,
+    dur: 820,
     part: "cycle",
     station: 5,
     zoom: 0.92,
@@ -150,7 +150,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s07",
-    dur: 175,
+    dur: 910,
     part: "cycle",
     station: 6,
     zoom: 0.92,
@@ -165,7 +165,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s08",
-    dur: 240,
+    dur: 900,
     part: "cycle",
     station: 7,
     zoom: 0.84,
@@ -180,7 +180,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s09",
-    dur: 200,
+    dur: 880,
     part: "cycle",
     station: 8,
     zoom: 0.9,
@@ -195,7 +195,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s10",
-    dur: 200,
+    dur: 785,
     part: "cycle",
     station: 9,
     zoom: 0.82,
@@ -210,7 +210,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s11",
-    dur: 185,
+    dur: 860,
     part: "cycle",
     station: 10,
     zoom: 0.92,
@@ -225,7 +225,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "s12",
-    dur: 225,
+    dur: 850,
     part: "cycle",
     station: 11,
     zoom: 0.86,
@@ -240,7 +240,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "overview",
-    dur: 160,
+    dur: 945,
     part: "special",
     station: null,
     zoom: 0.28,
@@ -249,7 +249,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "bridge",
-    dur: 195,
+    dur: 535,
     part: "special",
     station: null,
     zoom: 0.3,
@@ -261,7 +261,7 @@ const DEFS: ChapterDef[] = [
   /* ============ الحالة التطبيقية: نفس المراحل الـ12 بأرقام عميل واحد ============ */
   {
     id: "a1",
-    dur: 200,
+    dur: 870,
     part: "applied",
     station: 0,
     zoom: 0.92,
@@ -275,7 +275,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a2",
-    dur: 195,
+    dur: 815,
     part: "applied",
     station: 1,
     zoom: 0.92,
@@ -289,7 +289,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a3",
-    dur: 195,
+    dur: 880,
     part: "applied",
     station: 2,
     zoom: 0.9,
@@ -303,7 +303,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a4",
-    dur: 250,
+    dur: 1120,
     part: "applied",
     station: 3,
     zoom: 0.7,
@@ -317,7 +317,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a5",
-    dur: 215,
+    dur: 830,
     part: "applied",
     station: 4,
     zoom: 0.88,
@@ -331,7 +331,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a6",
-    dur: 195,
+    dur: 995,
     part: "applied",
     station: 5,
     zoom: 0.64,
@@ -345,7 +345,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a7",
-    dur: 185,
+    dur: 865,
     part: "applied",
     station: 6,
     zoom: 0.9,
@@ -359,7 +359,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a8",
-    dur: 265,
+    dur: 1250,
     part: "applied",
     station: 7,
     zoom: 0.62,
@@ -373,7 +373,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a9",
-    dur: 230,
+    dur: 860,
     part: "applied",
     station: 8,
     zoom: 0.88,
@@ -387,7 +387,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a10",
-    dur: 210,
+    dur: 845,
     part: "applied",
     station: 9,
     zoom: 0.82,
@@ -401,7 +401,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a11",
-    dur: 205,
+    dur: 835,
     part: "applied",
     station: 10,
     zoom: 0.9,
@@ -415,7 +415,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "a12",
-    dur: 245,
+    dur: 890,
     part: "applied",
     station: 11,
     zoom: 0.84,
@@ -429,7 +429,7 @@ const DEFS: ChapterDef[] = [
   },
   {
     id: "finale",
-    dur: 225,
+    dur: 770,
     part: "special",
     station: null,
     zoom: 0.26,
