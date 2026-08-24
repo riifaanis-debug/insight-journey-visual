@@ -53,14 +53,14 @@ export const ProfileCore: React.FC<ProfileState> = ({
   id = "CUST-48219",
 }) => {
   const k = width / 620;
-  const r = (n: number) => Math.round(n * k);
+  const sz = (n: number) => Math.round(n * k);
   return (
     <div
       dir="rtl"
       style={{
         width,
         background: C.white,
-        borderRadius: r(30),
+        borderRadius: sz(30),
         border: `1px solid ${C.line}`,
         boxShadow: `0 20px 50px rgba(28,38,34,0.10), 0 0 0 ${6 * glow}px rgba(195,154,62,${0.18 * glow}), 0 ${30 * glow}px ${80 * glow}px rgba(14,75,60,${0.2 * glow})`,
         overflow: "hidden",
@@ -70,26 +70,26 @@ export const ProfileCore: React.FC<ProfileState> = ({
       <div
         style={{
           background: `linear-gradient(90deg, ${C.green}, ${C.greenSoft})`,
-          padding: `${r(20)}px ${r(26)}px`,
+          padding: `${sz(20)}px ${sz(26)}px`,
           display: "flex",
           alignItems: "center",
-          gap: r(16),
+          gap: sz(16),
         }}
       >
         <div
           style={{
-            width: r(46),
-            height: r(46),
+            width: sz(46),
+            height: sz(46),
             borderRadius: 999,
             background: "rgba(255,255,255,0.18)",
             border: "1px solid rgba(255,255,255,0.35)",
           }}
         />
         <div style={{ flex: 1 }}>
-          <div style={{ color: C.white, fontSize: r(28), fontWeight: 700 }}>
+          <div style={{ color: C.white, fontSize: sz(28), fontWeight: 700 }}>
             ملف العميل
           </div>
-          <div dir="ltr" style={{ color: C.goldSoft, fontSize: r(21), fontWeight: 500 }}>
+          <div dir="ltr" style={{ color: C.goldSoft, fontSize: sz(21), fontWeight: 500 }}>
             Customer Profile
           </div>
         </div>
@@ -97,7 +97,7 @@ export const ProfileCore: React.FC<ProfileState> = ({
           dir="ltr"
           style={{
             color: "rgba(255,255,255,0.75)",
-            fontSize: r(19),
+            fontSize: sz(19),
             fontWeight: 600,
             letterSpacing: 0.5,
           }}
@@ -106,30 +106,30 @@ export const ProfileCore: React.FC<ProfileState> = ({
         </div>
       </div>
 
-      <div style={{ padding: `${r(22)}px ${r(26)}px ${r(26)}px` }}>
+      <div style={{ padding: `${sz(22)}px ${sz(26)}px ${sz(26)}px` }}>
         {/* مسارات المصادر ← شريط موحّد */}
-        <div style={{ position: "relative", height: r(3 * 34 + 8) }}>
+        <div style={{ position: "relative", height: sz(3 * 34 + 8) }}>
           {LANES.map((l, i) => {
-            const shift = (1 - unify) * 0 + unify * (r(34) * (1 - i));
+            const shift = (1 - unify) * 0 + unify * (sz(34) * (1 - i));
             const merged = unify;
             return (
               <div
                 key={l.en}
                 style={{
                   position: "absolute",
-                  top: i * r(34),
+                  top: i * sz(34),
                   left: 0,
                   right: 0,
                   transform: `translateY(${shift}px)`,
                   display: "flex",
                   alignItems: "center",
-                  gap: r(14),
+                  gap: sz(14),
                 }}
               >
                 <div
                   style={{
-                    width: r(96),
-                    fontSize: r(20),
+                    width: sz(96),
+                    fontSize: sz(20),
                     fontWeight: 600,
                     color: C.muted,
                     opacity: (1 - merged) * 0.9,
@@ -141,11 +141,11 @@ export const ProfileCore: React.FC<ProfileState> = ({
                 <div
                   style={{
                     flex: 1,
-                    height: r(14) + merged * r(4),
+                    height: sz(14) + merged * sz(4),
                     borderRadius: 999,
                     background: "#EFECE3",
                     overflow: "hidden",
-                    marginRight: -r(96) * merged,
+                    marginRight: -sz(96) * merged,
                   }}
                 >
                   <div
@@ -168,15 +168,15 @@ export const ProfileCore: React.FC<ProfileState> = ({
             <div
               style={{
                 position: "absolute",
-                top: r(34),
+                top: sz(34),
                 left: 0,
                 right: 0,
                 textAlign: "center",
-                fontSize: r(19),
+                fontSize: sz(19),
                 fontWeight: 700,
                 color: C.green,
                 opacity: (unify - 0.6) / 0.4,
-                transform: `translateY(${r(30)}px)`,
+                transform: `translateY(${sz(30)}px)`,
               }}
             >
               ملف موحّد <span dir="ltr">| Unified Profile</span>
@@ -189,8 +189,8 @@ export const ProfileCore: React.FC<ProfileState> = ({
           <div
             style={{
               display: "flex",
-              gap: r(10),
-              marginTop: r(26) + (1 - insight) * 10,
+              gap: sz(10),
+              marginTop: sz(26) + (1 - insight) * 10,
               opacity: insight,
             }}
           >
@@ -201,16 +201,16 @@ export const ProfileCore: React.FC<ProfileState> = ({
                   flex: 1,
                   background: C.greenLight,
                   border: `1px solid #BCD8CC`,
-                  borderRadius: r(16),
-                  padding: `${r(12)}px ${r(10)}px`,
+                  borderRadius: sz(16),
+                  padding: `${sz(12)}px ${sz(10)}px`,
                   textAlign: "center",
                   opacity: Math.max(0, Math.min(1, insight * 3 - i)),
                 }}
               >
-                <div style={{ fontSize: r(20), fontWeight: 700, color: C.green }}>
+                <div style={{ fontSize: sz(20), fontWeight: 700, color: C.green }}>
                   {s.ar}
                 </div>
-                <div dir="ltr" style={{ fontSize: r(16), color: C.muted }}>
+                <div dir="ltr" style={{ fontSize: sz(16), color: C.muted }}>
                   {s.en}
                 </div>
               </div>
@@ -220,7 +220,7 @@ export const ProfileCore: React.FC<ProfileState> = ({
 
         {/* حقائق الحالة */}
         {rows?.length ? (
-          <div style={{ marginTop: r(20) }}>
+          <div style={{ marginTop: sz(20) }}>
             {rows.map((r, i) => {
               const o = Math.max(0, Math.min(1, rowsReveal * rows.length - i));
               return (
@@ -230,20 +230,20 @@ export const ProfileCore: React.FC<ProfileState> = ({
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "baseline",
-                    padding: `${r(9)}px 0`,
+                    padding: `${sz(9)}px 0`,
                     borderBottom:
                       i < rows.length - 1 ? `1px solid #F0EDE4` : "none",
                     opacity: o,
                     transform: `translateX(${(1 - o) * -20}px)`,
                   }}
                 >
-                  <div style={{ fontSize: r(22), color: C.ink, fontWeight: 600 }}>
+                  <div style={{ fontSize: sz(22), color: C.ink, fontWeight: 600 }}>
                     {r.ar}{" "}
-                    <span dir="ltr" style={{ color: C.muted, fontSize: r(18) }}>
+                    <span dir="ltr" style={{ color: C.muted, fontSize: sz(18) }}>
                       | {r.en}
                     </span>
                   </div>
-                  <div style={{ fontSize: r(22), fontWeight: 700, color: C.green }}>
+                  <div style={{ fontSize: sz(22), fontWeight: 700, color: C.green }}>
                     {r.v}
                   </div>
                 </div>
@@ -256,11 +256,11 @@ export const ProfileCore: React.FC<ProfileState> = ({
         {persona && personaIn > 0.01 ? (
           <div
             style={{
-              marginTop: r(20),
+              marginTop: sz(20),
               background: "#F7EED6",
               border: `1px solid ${C.goldSoft}`,
-              borderRadius: r(18),
-              padding: `${r(14)}px ${r(18)}px`,
+              borderRadius: sz(18),
+              padding: `${sz(14)}px ${sz(18)}px`,
               opacity: personaIn,
               transform: `translateY(${(1 - personaIn) * 16}px)`,
               display: "flex",
@@ -270,10 +270,10 @@ export const ProfileCore: React.FC<ProfileState> = ({
             }}
           >
             <div>
-              <div style={{ fontSize: r(23), fontWeight: 700, color: "#8A6A1E" }}>
+              <div style={{ fontSize: sz(23), fontWeight: 700, color: "#8A6A1E" }}>
                 {persona.ar}
               </div>
-              <div dir="ltr" style={{ fontSize: r(18), color: C.muted }}>
+              <div dir="ltr" style={{ fontSize: sz(18), color: C.muted }}>
                 {persona.en}
               </div>
             </div>
@@ -283,15 +283,15 @@ export const ProfileCore: React.FC<ProfileState> = ({
                   textAlign: "center",
                   opacity: scoreIn,
                   background: C.white,
-                  borderRadius: r(14),
-                  padding: `${r(8)}px ${r(16)}px`,
+                  borderRadius: sz(14),
+                  padding: `${sz(8)}px ${sz(16)}px`,
                   border: `1px solid ${C.line}`,
                 }}
               >
-                <div style={{ fontSize: r(28), fontWeight: 700, color: C.green }}>
+                <div style={{ fontSize: sz(28), fontWeight: 700, color: C.green }}>
                   {Math.round(score)}
                 </div>
-                <div dir="ltr" style={{ fontSize: r(14), color: C.muted }}>
+                <div dir="ltr" style={{ fontSize: sz(14), color: C.muted }}>
                   Persona Score
                 </div>
               </div>
