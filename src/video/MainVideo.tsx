@@ -10,7 +10,7 @@ import { AppliedStations } from "./journey/AppliedStations";
 import { ProfileCore } from "./journey/ProfileCore";
 import { useProfileState } from "./journey/profileState";
 import { Titles, IllustrativeTag } from "./journey/Titles";
-import { byId, CHAPTERS, TOTAL, APPLIED_FIRST, APPLIED_LAST } from "./journey/timeline";
+import { byId, chapterAt, CHAPTERS, TOTAL, APPLIED_FIRST, APPLIED_LAST, PROFILE_TOP } from "./journey/timeline";
 import { Intro } from "./scenes/Intro";
 import { Bridge } from "./scenes/Bridge";
 import { AppliedBg } from "./journey/AppliedBg";
@@ -18,12 +18,11 @@ import { Finale } from "./scenes/Finale";
 
 export { TOTAL };
 
-/** الملف المستمر: يتحرك في العالم مع الكاميرا ولا يختفي أبدًا */
+/** الملف المستمر: مثبّت في نطاق ثابت من الشاشة أسفل العناوين */
 const ProfileLayer: React.FC = () => {
   const frame = useCurrentFrame();
-  const x = useCameraValue((c) => c.profX, frame);
-  const y = useCameraValue((c) => c.profY, frame);
   const s = useCameraValue((c) => c.profScale, frame);
+  const mode = chapterAt(frame).mode;
   const state = useProfileState();
   const intro = byId("intro");
   const fin = byId("finale");
@@ -34,16 +33,19 @@ const ProfileLayer: React.FC = () => {
     <div
       style={{
         position: "absolute",
-        left: x,
-        top: y,
-        transform: `translate(-50%,-50%) scale(${s})`,
+        left: 540,
+        top: PROFILE_TOP,
+        transform: `translateX(-50%) scale(${s})`,
+        transformOrigin: "50% 0",
         opacity,
+        pointerEvents: "none",
       }}
     >
-      <ProfileCore {...state} />
+      <ProfileCore {...state} mode={mode} />
     </div>
   );
 };
+
 
 const OverviewCaption: React.FC = () => {
   const f = useCurrentFrame();
@@ -129,8 +131,8 @@ export const MainVideo: React.FC = () => {
           <WorldRing />
           <CycleStations />
           <AppliedStations />
-          <ProfileLayer />
         </World>
+        <ProfileLayer />
       </AbsoluteFill>
 
       <Titles />

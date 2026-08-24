@@ -9,10 +9,14 @@ import { At } from "./Camera";
  */
 export const Station: React.FC<{
   id: string;
+  /** مركز أعلى عنصر داخل المحطة (بإحداثيات المحطة) */
+  top?: number;
+  /** نصف ارتفاع ذلك العنصر تقريبًا */
+  pad?: number;
   dy?: number;
   width?: number;
   children: (f: number) => React.ReactNode;
-}> = ({ id, dy = 0, width = 1200, children }) => {
+}> = ({ id, top = 0, pad = 110, dy = 0, width = 1200, children }) => {
   const frame = useCurrentFrame();
   const ch = byId(id);
   const [sx, sy] = ch.station === null ? [0, 0] : stationPos(ch.station);
@@ -21,12 +25,15 @@ export const Station: React.FC<{
   const outW = Math.max(0, Math.min(1, (ch.end - ch.start + TRANS * 0.6 - f) / TRANS));
   const vis = Math.min(inW, outW);
   if (vis <= 0.001) return null;
+  // ينزل محتوى المحطة أسفل النطاق المحجوز لبطاقة الملف
+  const shift = (ch.widgetTop - 960) / ch.zoom - (top - pad) + dy;
   return (
-    <At x={sx} y={sy + dy} opacity={vis} width={width}>
+    <At x={sx} y={sy + shift} opacity={vis} width={width}>
       <div style={{ position: "relative" }}>{children(f)}</div>
     </At>
   );
 };
+
 
 export const Row: React.FC<{
   children: React.ReactNode;
