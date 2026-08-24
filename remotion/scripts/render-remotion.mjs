@@ -8,7 +8,7 @@ const out = process.argv[2] ?? "/mnt/documents/cpf-framework.mp4";
 const frames = process.argv[3];
 
 const bundled = await bundle({
-  entryPoint: path.resolve(__dirname, "../src/index.ts"),
+  entryPoint: path.resolve(__dirname, "../src/live.ts"),
   webpackOverride: (config) => config,
 });
 
