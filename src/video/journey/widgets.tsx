@@ -55,14 +55,14 @@ export const Gauge: React.FC<{
           {Math.round(val * 100)}
         </div>
       </div>
-      <div dir="rtl" style={{ marginTop: 8, fontSize: 24, fontWeight: 700, color: C.ink }}>
+      <div dir="rtl" style={{ marginTop: 10, fontSize: 30, fontWeight: 700, color: C.ink }}>
         {ar}
       </div>
-      <div dir="ltr" style={{ fontSize: 19, color: C.muted }}>
+      <div dir="ltr" style={{ fontSize: 23, color: C.muted }}>
         {en}
       </div>
       {note ? (
-        <div dir="rtl" style={{ fontSize: 19, color: color, marginTop: 4, fontWeight: 600 }}>
+        <div dir="rtl" style={{ fontSize: 24, color: color, marginTop: 6, fontWeight: 600 }}>
           {note}
         </div>
       ) : null}
@@ -119,12 +119,12 @@ export const Alt: React.FC<{
           {verdict > 0.3 ? (ok ? "✓" : "✕") : "…"}
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 26, fontWeight: 700, color: C.ink }}>{ar}</div>
-          <div dir="ltr" style={{ fontSize: 19, color: C.muted }}>
+          <div style={{ fontSize: 32, fontWeight: 700, color: C.ink }}>{ar}</div>
+          <div dir="ltr" style={{ fontSize: 24, color: C.muted }}>
             {en}
           </div>
         </div>
-        <div style={{ fontSize: 26, fontWeight: 700, color: tone }}>
+        <div style={{ fontSize: 32, fontWeight: 700, color: tone }}>
           {Math.round(val * 100)}%
         </div>
       </div>
@@ -149,7 +149,7 @@ export const Alt: React.FC<{
         <div
           style={{
             marginTop: 10,
-            fontSize: 21,
+            fontSize: 26,
             color: ok ? C.green : C.red,
             fontWeight: 600,
             opacity: Math.min(1, (verdict - 0.35) / 0.3),
@@ -170,7 +170,7 @@ export const EngineBox: React.FC<{ glow: number; label?: string }> = ({
   <div
     dir="rtl"
     style={{
-      width: 420,
+      width: 520,
       padding: "26px 28px",
       borderRadius: 30,
       background: `linear-gradient(135deg, ${C.green}, ${C.greenSoft})`,
@@ -180,8 +180,8 @@ export const EngineBox: React.FC<{ glow: number; label?: string }> = ({
       boxShadow: `0 ${20 + glow * 22}px ${50 + glow * 40}px rgba(14,75,60,${0.2 + glow * 0.2}), 0 0 0 ${glow * 8}px rgba(195,154,62,0.16)`,
     }}
   >
-    <div style={{ fontSize: 32, fontWeight: 700 }}>{label}</div>
-    <div dir="ltr" style={{ fontSize: 22, color: C.goldSoft, marginTop: 4 }}>
+    <div style={{ fontSize: 40, fontWeight: 700 }}>{label}</div>
+    <div dir="ltr" style={{ fontSize: 27, color: C.goldSoft, marginTop: 6 }}>
       Decision Engine
     </div>
   </div>
@@ -202,7 +202,7 @@ export const Check: React.FC<{ ar: string; en: string; done: number }> = ({
       border: `1px solid ${done > 0.5 ? "#BCD8CC" : C.line}`,
       borderRadius: 18,
       padding: "14px 22px",
-      width: 760,
+      width: 880,
       fontFamily: FSTACK,
       boxShadow: "0 10px 24px rgba(28,38,34,0.06)",
     }}
@@ -224,8 +224,8 @@ export const Check: React.FC<{ ar: string; en: string; done: number }> = ({
     >
       {done > 0.5 ? "✓" : ""}
     </div>
-    <div style={{ fontSize: 26, fontWeight: 700, color: C.ink }}>{ar}</div>
-    <div dir="ltr" style={{ fontSize: 20, color: C.muted }}>
+    <div style={{ fontSize: 32, fontWeight: 700, color: C.ink }}>{ar}</div>
+    <div dir="ltr" style={{ fontSize: 25, color: C.muted }}>
       | {en}
     </div>
   </div>
@@ -251,13 +251,13 @@ export const PackItem: React.FC<{
       fontFamily: FSTACK,
     }}
   >
-    <div style={{ fontSize: 24, fontWeight: 700, color: C.ink }}>
+    <div style={{ fontSize: 30, fontWeight: 700, color: C.ink }}>
       {ar}{" "}
-      <span dir="ltr" style={{ fontSize: 19, color: C.muted, fontWeight: 500 }}>
+      <span dir="ltr" style={{ fontSize: 23, color: C.muted, fontWeight: 500 }}>
         | {en}
       </span>
     </div>
-    <div style={{ fontSize: 23, fontWeight: 700, color: C.green, textAlign: "left" }}>
+    <div style={{ fontSize: 29, fontWeight: 700, color: C.green, textAlign: "left" }}>
       {v}
     </div>
   </div>
@@ -272,8 +272,8 @@ export const Phone: React.FC<{
 }> = ({ send, arrive, tap, text, time }) => (
   <div
     style={{
-      width: 330,
-      height: 620,
+      width: 400,
+      height: 740,
       borderRadius: 46,
       background: C.white,
       border: `10px solid #232C28`,
@@ -305,7 +305,7 @@ export const Phone: React.FC<{
         border: `1px solid #BCD8CC`,
         borderRadius: 20,
         padding: "16px 18px",
-        fontSize: 21,
+        fontSize: 26,
         color: C.green,
         fontWeight: 600,
         lineHeight: 1.5,

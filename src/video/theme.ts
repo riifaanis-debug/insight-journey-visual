@@ -15,6 +15,18 @@ export const C = {
   red: "#B04A3A",
 };
 
+/** لون لكل مجموعة مراحل — يبقى الأخضر والذهبي أساس الهوية */
+export const GROUP: Record<string, { main: string; soft: string; light: string }> = {
+  data: { main: "#0E4B3C", soft: "#2A6B58", light: "#DCEAE3" },
+  understanding: { main: "#12796B", soft: "#2E9A88", light: "#D8EDE9" },
+  decision: { main: "#1F5B8F", soft: "#3E7FB5", light: "#DCE8F3" },
+  action: { main: "#5A4A93", soft: "#7C6BB5", light: "#E5E0F2" },
+  outcome: { main: "#B0722A", soft: "#D0913F", light: "#F6E9D6" },
+  learning: { main: "#9A3B55", soft: "#BC5C76", light: "#F5DFE5" },
+};
+
+export const groupColor = (g?: string) => GROUP[g ?? "data"] ?? GROUP["data"]!;
+
 export const FONT_AR = "font-ar";
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
