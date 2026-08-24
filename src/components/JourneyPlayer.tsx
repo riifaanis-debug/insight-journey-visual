@@ -34,7 +34,7 @@ export function JourneyPlayer() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   return (
-    <div dir="ltr" className="w-full overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+    <div data-journey dir="ltr" className="w-full overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
       {mounted ? (
         <Suspense fallback={<Skeleton />}>
           <LazyPlayer />
