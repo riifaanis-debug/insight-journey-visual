@@ -1,24 +1,67 @@
 import { createFileRoute } from "@tanstack/react-router";
+import videoAsset from "../assets/cpf-framework.mp4.asset.json";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Collection Persona Framework™ | الدورة التشغيلية" },
+      {
+        name: "description",
+        content:
+          "فيديو Motion Graphics يوضح الدورة التشغيلية لـ Collection Persona Framework™ من استلام البيانات حتى التعلم والتحديث، مع حالة تطبيقية.",
+      },
+      { property: "og:title", content: "Collection Persona Framework™ | الدورة التشغيلية" },
+      {
+        property: "og:description",
+        content:
+          "شاهد كيف تتحول البيانات إلى فهم ثم قرار ثم إجراء تحصيلي، ثم تعود النتيجة لتحسين القرار التالي.",
+      },
+      { property: "og:type", content: "video.other" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
+    <main
+      dir="rtl"
+      className="min-h-screen bg-background px-4 py-10 sm:py-14"
+      style={{
+        backgroundImage:
+          "radial-gradient(120% 80% at 50% 0%, color-mix(in oklch, var(--color-primary) 8%, transparent), transparent 70%)",
+      }}
     >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+      <div className="mx-auto flex w-full max-w-md flex-col items-center gap-6">
+        <header className="text-center">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            Collection Persona Framework™
+          </h1>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            الدورة التشغيلية | Operating Cycle
+            <br />
+            وحالة تطبيقية | Applied Case
+          </p>
+        </header>
+
+        <div className="w-full overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+          <video
+            className="block h-auto w-full"
+            src={videoAsset.url}
+            controls
+            playsInline
+            preload="metadata"
+            poster=""
+          >
+            <track kind="captions" />
+          </video>
+        </div>
+
+        <p className="text-center text-xs leading-relaxed text-muted-foreground">
+          Data → Understanding → Decision → Action → Outcome → Learning ↻
+        </p>
+      </div>
+    </main>
   );
 }

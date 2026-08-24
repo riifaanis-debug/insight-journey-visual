@@ -17,8 +17,9 @@ export const Stage: React.FC<{
       <div
         style={{
           position: "absolute",
-          top: 520,
-          bottom: 170,
+          top: 480,
+          bottom: 300,
+
           left: 70,
           right: 70,
           opacity: appear(f, 10, 26),

@@ -118,8 +118,11 @@ export const S02: React.FC = () => {
               key={i}
               style={{
                 position: "absolute",
-                left: x * (1 - merge) - 40,
-                top: y * (1 - merge) - 20,
+                left: "50%",
+                top: "50%",
+                marginLeft: x * (1 - merge) - 55,
+                marginTop: y * (1 - merge) - 22,
+
                 width: 110 - 60 * merge,
                 height: 44 - 24 * merge,
                 borderRadius: 12,
