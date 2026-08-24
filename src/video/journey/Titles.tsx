@@ -42,26 +42,29 @@ export const Titles: React.FC = () => {
               transform: `translateY(${(1 - o) * 14}px)`,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <div
-                style={{
-                  fontSize: 32,
-                  fontWeight: 700,
-                  color: applied ? "#FFFFFF" : g.main,
-                  letterSpacing: 1.5,
-                  background: applied ? g.main : g.light,
-                  padding: "8px 20px",
-                  borderRadius: 999,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {c.index}
+            {c.index ? (
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <div
+                  style={{
+                    fontSize: 32,
+                    fontWeight: 700,
+                    color: applied ? "#FFFFFF" : g.main,
+                    letterSpacing: 1.5,
+                    background: applied ? g.main : g.light,
+                    padding: "8px 20px",
+                    borderRadius: 999,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {c.index}
+                </div>
+                <div style={{ height: 3, flex: 1, background: g.light }} />
               </div>
-              <div style={{ height: 3, flex: 1, background: g.light }} />
-            </div>
+            ) : null}
+
             <div
               style={{
-                marginTop: 16,
+                marginTop: c.index ? 16 : 0,
                 display: "flex",
                 alignItems: "baseline",
                 gap: 16,
