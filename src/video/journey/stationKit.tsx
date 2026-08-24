@@ -64,12 +64,12 @@ export const Pod: React.FC<{
       background: C.white,
       border: `1px solid ${C.line}`,
       borderRadius: 22,
-      padding: "16px 24px",
+      padding: "20px 28px",
       textAlign: "center",
       fontFamily: FSTACK,
       boxShadow: "0 14px 32px rgba(28,38,34,0.08)",
       opacity: o,
-      minWidth: 240,
+      minWidth: 290,
     }}
   >
     <div
@@ -81,8 +81,8 @@ export const Pod: React.FC<{
         margin: "0 auto 10px",
       }}
     />
-    <div style={{ fontSize: 26, fontWeight: 700, color: C.ink }}>{ar}</div>
-    <div dir="ltr" style={{ fontSize: 19, color: C.muted }}>
+    <div style={{ fontSize: 33, fontWeight: 700, color: C.ink }}>{ar}</div>
+    <div dir="ltr" style={{ fontSize: 24, color: C.muted }}>
       {en}
     </div>
   </div>
@@ -101,7 +101,7 @@ export const Card: React.FC<{
       background: C.white,
       border: `1px solid ${glow ? C.gold : C.line}`,
       borderRadius: 26,
-      padding: "22px 26px",
+      padding: "26px 30px",
       fontFamily: FSTACK,
       boxShadow: glow
         ? "0 26px 60px rgba(14,75,60,0.18)"
@@ -118,7 +118,7 @@ export const Tag: React.FC<{
   en?: string;
   tone?: "green" | "gold" | "muted" | "red";
   size?: number;
-}> = ({ ar, en, tone = "green", size = 24 }) => {
+}> = ({ ar, en, tone = "green", size = 30 }) => {
   const map = {
     green: { bg: C.greenLight, fg: C.green, bd: "#BCD8CC" },
     gold: { bg: "#F7EED6", fg: "#8A6A1E", bd: C.goldSoft },
@@ -162,19 +162,16 @@ export const Note: React.FC<{ ar: string; en?: string; o?: number }> = ({
     dir="rtl"
     style={{
       fontFamily: FSTACK,
-      fontSize: 25,
+      fontSize: 31,
       color: C.muted,
       textAlign: "center",
       opacity: o,
       lineHeight: 1.5,
     }}
   >
-    {ar}
+    <div>{ar}</div>
     {en ? (
-      <span dir="ltr" style={{ color: C.greenSoft }}>
-        {" "}
-        | {en}
-      </span>
+      <div dir="ltr" style={{ color: C.greenSoft, fontSize: 26 }}>{en}</div>
     ) : null}
   </div>
 );

@@ -10,8 +10,10 @@ import { AppliedStations } from "./journey/AppliedStations";
 import { ProfileCore } from "./journey/ProfileCore";
 import { useProfileState } from "./journey/profileState";
 import { Titles, IllustrativeTag } from "./journey/Titles";
-import { byId, CHAPTERS, TOTAL } from "./journey/timeline";
-import { Intro, Interstitial } from "./scenes/Intro";
+import { byId, CHAPTERS, TOTAL, APPLIED_FIRST, APPLIED_LAST } from "./journey/timeline";
+import { Intro } from "./scenes/Intro";
+import { Bridge } from "./scenes/Bridge";
+import { AppliedBg } from "./journey/AppliedBg";
 import { Finale } from "./scenes/Finale";
 
 export { TOTAL };
@@ -74,8 +76,8 @@ const OverviewCaption: React.FC = () => {
 
 const AppliedBadge: React.FC = () => {
   const f = useCurrentFrame();
-  const start = byId("a1").start;
-  const end = byId("a7").end;
+  const start = byId(APPLIED_FIRST).start;
+  const end = byId(APPLIED_LAST).end;
   const o = seg(f, start - 20, start + 20) * (1 - seg(f, end - 30, end));
   if (o <= 0.01) return null;
   return (
@@ -86,7 +88,7 @@ const AppliedBadge: React.FC = () => {
         top: 60,
         right: 80,
         fontFamily: FSTACK,
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 700,
         color: C.green,
         background: C.greenLight,
@@ -113,7 +115,7 @@ export const MainVideo: React.FC = () => {
   const worldOpacity =
     seg(frame, intro.end - 50, intro.end + 10) *
     (1 - seg(frame, fin.start + 10, fin.start + 60)) *
-    (1 - bridgeDim * 0.9);
+    (1 - bridgeDim);
   const illus =
     seg(frame, byId("s05").start, byId("s05").start + 30) *
     (1 - seg(frame, fin.start - 30, fin.start));
@@ -121,6 +123,7 @@ export const MainVideo: React.FC = () => {
   return (
     <AbsoluteFill style={{ fontFamily: FSTACK, backgroundColor: C.bg }}>
       <Bg />
+      <AppliedBg />
       <AbsoluteFill style={{ opacity: worldOpacity }}>
         <World>
           <WorldRing />
@@ -141,9 +144,9 @@ export const MainVideo: React.FC = () => {
         </FadeOut>
       </Sequence>
 
-      <Sequence from={bridge.start} durationInFrames={bridge.dur + 16}>
-        <FadeOut hold={bridge.dur - 20} fadeIn>
-          <Interstitial />
+      <Sequence from={bridge.start} durationInFrames={bridge.dur + 20}>
+        <FadeOut hold={bridge.dur - 34} fadeIn>
+          <Bridge />
         </FadeOut>
       </Sequence>
 

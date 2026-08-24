@@ -1,32 +1,42 @@
 import { useCurrentFrame } from "remotion";
 import { seg } from "../theme";
-import { byId } from "./timeline";
+import { byId, APPLIED_FIRST } from "./timeline";
 import { CASE } from "./caseData";
 import type { ProfileState } from "./ProfileCore";
 
 const at = (id: string, off: number) => byId(id).start + off;
 
 /**
- * حالة الملف المستمر: لا يُعاد إنشاؤه — كل مرحلة تضيف إليه مخرجاتها.
+ * حالة الملف المستمر: لا يُعاد إنشاؤه — كل مرحلة تضيف إليه مخرجاتها،
+ * في الدورة التشغيلية وفي الحالة التطبيقية على السواء.
  */
 export const useProfileState = (): ProfileState => {
   const f = useCurrentFrame();
 
-  const lanes: [number, number, number] = [
-    seg(f, at("s01", 24), at("s01", 78)),
-    seg(f, at("s01", 34), at("s01", 92)),
-    seg(f, at("s01", 44), at("s01", 106)),
+  const cycleLanes: [number, number, number] = [
+    seg(f, at("s01", 28), at("s01", 92)),
+    seg(f, at("s01", 40), at("s01", 108)),
+    seg(f, at("s01", 52), at("s01", 124)),
   ];
-  const unify = seg(f, at("s02", 22), at("s02", 82));
-  const insight = seg(f, at("s03", 20), at("s03", 74));
+  const cycleUnify = seg(f, at("s02", 24), at("s02", 96));
+  const cycleInsight = seg(f, at("s03", 22), at("s03", 88));
 
-  const cycleScore = seg(f, at("s06", 16), at("s06", 90)) * 74;
-  const inApplied = f >= byId("a1").start;
+  const cycleScore = seg(f, at("s06", 18), at("s06", 104)) * 74;
+  const inApplied = f >= byId(APPLIED_FIRST).start;
+
+  // الحالة التطبيقية تبني الملف من جديد بأرقام العميل — لا تقفز للنهاية
+  const appliedLanes: [number, number, number] = [
+    seg(f, at("a1", 26), at("a1", 90)),
+    seg(f, at("a1", 38), at("a1", 106)),
+    seg(f, at("a1", 50), at("a1", 122)),
+  ];
+  const appliedUnify = seg(f, at("a2", 20), at("a2", 92));
+  const appliedInsight = seg(f, at("a3", 18), at("a3", 82));
 
   const rows = inApplied ? CASE.facts : undefined;
-  const rowsReveal = inApplied ? seg(f, at("a1", 20), at("a1", 110)) : 0;
+  const rowsReveal = inApplied ? seg(f, at("a1", 24), at("a1", 120)) : 0;
 
-  const personaSwitch = seg(f, at("a7", 150), at("a7", 180));
+  const personaSwitch = seg(f, at("a12", 160), at("a12", 195));
   const persona = inApplied
     ? personaSwitch > 0.5
       ? CASE.personaAfter
@@ -34,29 +44,32 @@ export const useProfileState = (): ProfileState => {
     : { ar: "قادر يصعب الوصول إليه", en: "Able but Hard to Reach" };
 
   const personaIn = inApplied
-    ? seg(f, at("a3", 96), at("a3", 132))
-    : seg(f, at("s05", 100), at("s05", 140));
+    ? seg(f, at("a5", 104), at("a5", 142))
+    : seg(f, at("s05", 110), at("s05", 150));
 
   const appliedScore =
-    CASE.score + (CASE.scoreAfter - CASE.score) * seg(f, at("a7", 24), at("a7", 96));
+    CASE.score + (CASE.scoreAfter - CASE.score) * seg(f, at("a12", 24), at("a12", 100));
 
   const score = inApplied ? appliedScore : cycleScore;
   const scoreIn = inApplied
-    ? seg(f, at("a3", 120), at("a3", 150))
-    : seg(f, at("s06", 20), at("s06", 60));
+    ? seg(f, at("a6", 20), at("a6", 60))
+    : seg(f, at("s06", 20), at("s06", 62));
 
   const glow = Math.max(
-    seg(f, at("s02", 60), at("s02", 100)) * 0.5,
+    seg(f, at("s02", 64), at("s02", 108)) * 0.5,
     Math.max(
-      seg(f, at("s07", 80), at("s07", 120)),
-      seg(f, at("a7", 100), at("a7", 150)),
+      seg(f, at("s07", 86), at("s07", 130)),
+      Math.max(
+        seg(f, at("a2", 96), at("a2", 140)) * 0.6,
+        seg(f, at("a12", 104), at("a12", 156)),
+      ),
     ),
   );
 
   return {
-    lanes: inApplied ? [1, 1, 1] : lanes,
-    unify: inApplied ? 1 : unify,
-    insight: inApplied ? 1 : insight,
+    lanes: inApplied ? appliedLanes : cycleLanes,
+    unify: inApplied ? appliedUnify : cycleUnify,
+    insight: inApplied ? appliedInsight : cycleInsight,
     rows,
     rowsReveal,
     persona,

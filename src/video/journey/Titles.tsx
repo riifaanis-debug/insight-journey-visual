@@ -1,12 +1,12 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { CHAPTERS } from "./timeline";
-import { C } from "../theme";
+import { C, groupColor } from "../theme";
 import { FSTACK } from "../font";
 
 const win = (f: number, dur: number) => {
-  const inn = Math.max(0, Math.min(1, f / 16));
-  const out = Math.max(0, Math.min(1, (dur - f) / 14));
+  const inn = Math.max(0, Math.min(1, f / 18));
+  const out = Math.max(0, Math.min(1, (dur - f) / 16));
   return Math.min(inn, out);
 };
 
@@ -18,9 +18,9 @@ export const Titles: React.FC = () => {
       dir="rtl"
       style={{
         position: "absolute",
-        top: 150,
-        right: 80,
-        left: 80,
+        top: 130,
+        right: 64,
+        left: 64,
         fontFamily: FSTACK,
         pointerEvents: "none",
       }}
@@ -29,6 +29,7 @@ export const Titles: React.FC = () => {
         const f = frame - c.start;
         if (f < -8 || f > c.dur + 8) return null;
         const o = win(f, c.dur);
+        const g = groupColor(c.group);
         const applied = c.part === "applied";
         return (
           <div
@@ -44,44 +45,44 @@ export const Titles: React.FC = () => {
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div
                 style={{
-                  fontSize: 26,
+                  fontSize: 32,
                   fontWeight: 700,
-                  color: applied ? C.green : C.gold,
-                  letterSpacing: 2,
-                  background: applied ? C.greenLight : "transparent",
-                  padding: applied ? "4px 14px" : 0,
+                  color: applied ? "#FFFFFF" : g.main,
+                  letterSpacing: 1.5,
+                  background: applied ? g.main : g.light,
+                  padding: "8px 20px",
                   borderRadius: 999,
                   whiteSpace: "nowrap",
                 }}
               >
                 {c.index}
               </div>
-              <div style={{ height: 2, flex: 1, background: C.line }} />
+              <div style={{ height: 3, flex: 1, background: g.light }} />
             </div>
             <div
               style={{
-                marginTop: 12,
+                marginTop: 16,
                 display: "flex",
                 alignItems: "baseline",
-                gap: 14,
+                gap: 16,
                 flexWrap: "wrap",
               }}
             >
-              <span style={{ fontSize: 50, fontWeight: 700, color: C.ink }}>
+              <span style={{ fontSize: 66, fontWeight: 700, color: C.ink, lineHeight: 1.15 }}>
                 {c.ar}
               </span>
-              <span style={{ color: C.line }}>|</span>
+              <span style={{ color: C.line, fontSize: 40 }}>|</span>
               <span
                 dir="ltr"
-                style={{ fontSize: 34, fontWeight: 600, color: C.greenSoft }}
+                style={{ fontSize: 44, fontWeight: 600, color: g.soft }}
               >
                 {c.en}
               </span>
             </div>
             <div
               style={{
-                marginTop: 10,
-                fontSize: 27,
+                marginTop: 14,
+                fontSize: 34,
                 color: C.muted,
                 lineHeight: 1.5,
               }}
@@ -102,12 +103,12 @@ export const IllustrativeTag: React.FC<{ opacity?: number }> = ({
     dir="rtl"
     style={{
       position: "absolute",
-      bottom: 92,
+      bottom: 84,
       right: 0,
       left: 0,
       textAlign: "center",
       fontFamily: FSTACK,
-      fontSize: 22,
+      fontSize: 26,
       color: C.muted,
       opacity: opacity * 0.9,
       pointerEvents: "none",
