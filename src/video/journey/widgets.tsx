@@ -8,7 +8,7 @@ export const Gauge: React.FC<{
   v: number;
   progress: number;
   size?: number;
-  note?: string;
+  note?: string | undefined;
   tone?: string;
   highlight?: number;
 }> = ({ ar, en, v, progress, size = 200, note, tone, highlight = 0 }) => {

@@ -17,7 +17,7 @@ export type ProfileState = {
   unify: number;
   /** insight layers appear */
   insight: number;
-  rows?: { ar: string; en: string; v: string }[];
+  rows?: { ar: string; en: string; v: string }[] | undefined;
   rowsReveal?: number;
   persona?: { ar: string; en: string } | null;
   personaIn?: number;
