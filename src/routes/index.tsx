@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import videoAsset from "../assets/cpf-framework.mp4.asset.json";
+import { JourneyPlayer } from "../components/JourneyPlayer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -45,18 +45,7 @@ function Index() {
           </p>
         </header>
 
-        <div className="w-full overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
-          <video
-            className="block h-auto w-full"
-            src={videoAsset.url}
-            controls
-            playsInline
-            preload="metadata"
-            poster=""
-          >
-            <track kind="captions" />
-          </video>
-        </div>
+        <JourneyPlayer />
 
         <p className="text-center text-xs leading-relaxed text-muted-foreground">
           Data → Understanding → Decision → Action → Outcome → Learning ↻
