@@ -8,6 +8,9 @@ export type Group =
   | "outcome"
   | "learning";
 
+/** أوضاع بطاقة ملف العميل — تتحكم بارتفاعها حتى لا تتراكب مع بقية المشهد */
+export type ProfileMode = "full" | "compact" | "mini";
+
 export type ChapterDef = {
   id: string;
   dur: number;
@@ -18,8 +21,12 @@ export type ChapterDef = {
   group?: Group;
   /** camera offset from the station centre, in world px */
   focus?: [number, number];
-  /** profile offset from the station centre + scale */
-  profile?: [number, number, number];
+  /** وضع بطاقة الملف */
+  pMode?: ProfileMode;
+  /** حجم البطاقة على الشاشة */
+  pScale?: number;
+  /** أعلى نطاق ودجات المحطة، بإحداثيات الشاشة (إطار 1080×1920) */
+  wTop?: number;
   index?: string;
   ar?: string;
   en?: string;
@@ -32,12 +39,15 @@ export const FPS = 30;
 export const RING_R = 2600;
 export const STATIONS = 12;
 
+/** أعلى نطاق بطاقة الملف على الشاشة */
+export const PROFILE_TOP = 600;
+/** مركز الإطار عموديًا */
+export const SCREEN_CY = 960;
+
 export const stationPos = (i: number): [number, number] => {
   const a = (-90 + (360 / STATIONS) * i) * (Math.PI / 180);
   return [Math.cos(a) * RING_R, Math.sin(a) * RING_R];
 };
-
-const P: [number, number, number] = [0, -430, 1];
 
 const DEFS: ChapterDef[] = [
   {
@@ -55,7 +65,9 @@ const DEFS: ChapterDef[] = [
     station: 0,
     zoom: 0.94,
     group: "data",
-    profile: [0, -200, 0.95],
+    pMode: "full",
+    pScale: 1,
+    wTop: 1080,
     index: "01",
     ar: "استلام البيانات",
     en: "Data Intake",
@@ -68,7 +80,9 @@ const DEFS: ChapterDef[] = [
     station: 1,
     zoom: 0.96,
     group: "data",
-    profile: [0, -190, 1.0],
+    pMode: "full",
+    pScale: 1,
+    wTop: 1080,
     index: "02",
     ar: "توحيد البيانات",
     en: "Data Unification",
@@ -81,7 +95,9 @@ const DEFS: ChapterDef[] = [
     station: 2,
     zoom: 0.9,
     group: "understanding",
-    profile: [0, -300, 0.88],
+    pMode: "full",
+    pScale: 0.95,
+    wTop: 1130,
     index: "03",
     ar: "بناء فهم العميل",
     en: "Customer Understanding",
@@ -94,7 +110,9 @@ const DEFS: ChapterDef[] = [
     station: 3,
     zoom: 0.7,
     group: "understanding",
-    profile: [0, 0, 0.85],
+    pMode: "mini",
+    pScale: 0.62,
+    wTop: 1000,
     index: "04",
     ar: "تحليل أبعاد العميل",
     en: "Dimensions Analysis",
@@ -107,7 +125,9 @@ const DEFS: ChapterDef[] = [
     station: 4,
     zoom: 0.88,
     group: "decision",
-    profile: [0, -355, 0.78],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1120,
     index: "05",
     ar: "تحديد الشخصية",
     en: "Persona Identification",
@@ -120,7 +140,9 @@ const DEFS: ChapterDef[] = [
     station: 5,
     zoom: 0.92,
     group: "decision",
-    profile: [0, -370, 0.76],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1120,
     index: "06",
     ar: "درجة الشخصية",
     en: "Persona Score",
@@ -133,7 +155,9 @@ const DEFS: ChapterDef[] = [
     station: 6,
     zoom: 0.92,
     group: "decision",
-    profile: [0, -370, 0.76],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1120,
     index: "07",
     ar: "الجاهزية للقرار",
     en: "Decision Readiness",
@@ -146,7 +170,9 @@ const DEFS: ChapterDef[] = [
     station: 7,
     zoom: 0.84,
     group: "decision",
-    profile: [0, -365, 0.72],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1120,
     index: "08",
     ar: "محرك القرار",
     en: "Decision Engine",
@@ -159,7 +185,9 @@ const DEFS: ChapterDef[] = [
     station: 8,
     zoom: 0.9,
     group: "action",
-    profile: [0, -365, 0.72],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1120,
     index: "09",
     ar: "أفضل إجراء تحصيلي تالٍ",
     en: "Next Best Collection Action",
@@ -172,7 +200,9 @@ const DEFS: ChapterDef[] = [
     station: 9,
     zoom: 0.82,
     group: "action",
-    profile: [0, -370, 0.72],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1120,
     index: "10",
     ar: "التنفيذ",
     en: "Execution",
@@ -185,7 +215,9 @@ const DEFS: ChapterDef[] = [
     station: 10,
     zoom: 0.92,
     group: "outcome",
-    profile: [0, -360, 0.72],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1120,
     index: "11",
     ar: "قياس النتائج",
     en: "Outcome Measurement",
@@ -198,7 +230,9 @@ const DEFS: ChapterDef[] = [
     station: 11,
     zoom: 0.86,
     group: "learning",
-    profile: [0, -340, 0.8],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1120,
     index: "12",
     ar: "التعلم والتحديث",
     en: "Learning & Update",
@@ -210,7 +244,8 @@ const DEFS: ChapterDef[] = [
     part: "special",
     station: null,
     zoom: 0.28,
-    profile: [0, 0, 1],
+    pMode: "mini",
+    pScale: 0.7,
   },
   {
     id: "bridge",
@@ -218,6 +253,8 @@ const DEFS: ChapterDef[] = [
     part: "special",
     station: null,
     zoom: 0.3,
+    pMode: "mini",
+    pScale: 0.7,
     overlay: true,
   },
 
@@ -229,7 +266,9 @@ const DEFS: ChapterDef[] = [
     station: 0,
     zoom: 0.92,
     group: "data",
-    profile: [0, -190, 0.95],
+    pMode: "compact",
+    pScale: 0.8,
+    wTop: 1180,
     index: "01 | حالة",
     ar: "بيانات عميل واحد",
     en: "One Customer's Data",
@@ -242,7 +281,9 @@ const DEFS: ChapterDef[] = [
     station: 1,
     zoom: 0.92,
     group: "data",
-    profile: [0, -190, 0.9],
+    pMode: "compact",
+    pScale: 0.8,
+    wTop: 1180,
     index: "02 | حالة",
     ar: "توحيد سجلاته",
     en: "Unifying His Records",
@@ -255,7 +296,9 @@ const DEFS: ChapterDef[] = [
     station: 2,
     zoom: 0.9,
     group: "understanding",
-    profile: [0, -260, 0.88],
+    pMode: "compact",
+    pScale: 0.7,
+    wTop: 1190,
     index: "03 | حالة",
     ar: "ماذا نفهم عنه؟",
     en: "What We Understand",
@@ -268,7 +311,9 @@ const DEFS: ChapterDef[] = [
     station: 3,
     zoom: 0.7,
     group: "understanding",
-    profile: [0, 0, 0.85],
+    pMode: "mini",
+    pScale: 0.62,
+    wTop: 1000,
     index: "04 | حالة",
     ar: "أبعاد غير متساوية",
     en: "Uneven Dimensions",
@@ -281,7 +326,9 @@ const DEFS: ChapterDef[] = [
     station: 4,
     zoom: 0.88,
     group: "decision",
-    profile: [0, -355, 0.76],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1200,
     index: "05 | حالة",
     ar: "مطابقة مبرَّرة",
     en: "Justified Match",
@@ -292,9 +339,11 @@ const DEFS: ChapterDef[] = [
     dur: 195,
     part: "applied",
     station: 5,
-    zoom: 0.9,
+    zoom: 0.64,
     group: "decision",
-    profile: [0, -360, 0.74],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1080,
     index: "06 | حالة",
     ar: "من أين جاءت الدرجة؟",
     en: "How the Score Is Built",
@@ -307,7 +356,9 @@ const DEFS: ChapterDef[] = [
     station: 6,
     zoom: 0.9,
     group: "decision",
-    profile: [0, -360, 0.74],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1200,
     index: "07 | حالة",
     ar: "جاهز للقرار",
     en: "Ready for Decision",
@@ -318,9 +369,11 @@ const DEFS: ChapterDef[] = [
     dur: 265,
     part: "applied",
     station: 7,
-    zoom: 0.84,
+    zoom: 0.62,
     group: "decision",
-    profile: [0, -355, 0.72],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1080,
     index: "08 | حالة",
     ar: "بدائل مرفوضة ولماذا",
     en: "Rejected Alternatives",
@@ -333,7 +386,9 @@ const DEFS: ChapterDef[] = [
     station: 8,
     zoom: 0.88,
     group: "action",
-    profile: [0, -355, 0.72],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1200,
     index: "09 | حالة",
     ar: "الإجراء مقابل الأسلوب التقليدي",
     en: "NBCA vs Traditional",
@@ -346,7 +401,9 @@ const DEFS: ChapterDef[] = [
     station: 9,
     zoom: 0.82,
     group: "action",
-    profile: [0, -365, 0.72],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1200,
     index: "10 | حالة",
     ar: "التنفيذ الفعلي",
     en: "Actual Execution",
@@ -359,7 +416,9 @@ const DEFS: ChapterDef[] = [
     station: 10,
     zoom: 0.9,
     group: "outcome",
-    profile: [0, -355, 0.72],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1200,
     index: "11 | حالة",
     ar: "النتيجة بالأرقام",
     en: "Outcome in Numbers",
@@ -372,7 +431,9 @@ const DEFS: ChapterDef[] = [
     station: 11,
     zoom: 0.84,
     group: "learning",
-    profile: [0, -360, 0.78],
+    pMode: "mini",
+    pScale: 0.74,
+    wTop: 1200,
     index: "12 | حالة",
     ar: "قبل وبعد التعلم",
     en: "Before & After Learning",
@@ -393,25 +454,24 @@ export type Chapter = ChapterDef & {
   end: number;
   camX: number;
   camY: number;
-  profX: number;
-  profY: number;
   profScale: number;
+  widgetTop: number;
+  mode: ProfileMode;
 };
 
 let acc = 0;
 export const CHAPTERS: Chapter[] = DEFS.map((d) => {
   const [sx, sy] = d.station === null ? [0, 0] : stationPos(d.station);
   const [fx, fy] = d.focus ?? [0, 0];
-  const [px, py, ps] = d.profile ?? P;
   const c: Chapter = {
     ...d,
     start: acc,
     end: acc + d.dur,
     camX: sx + fx,
     camY: sy + fy,
-    profX: sx + px,
-    profY: sy + py,
-    profScale: ps,
+    profScale: d.pScale ?? 0.8,
+    widgetTop: d.wTop ?? 1120,
+    mode: d.pMode ?? "mini",
   };
   acc += d.dur;
   return c;
@@ -424,6 +484,10 @@ export const byId = (id: string): Chapter => {
   if (!c) throw new Error(`unknown chapter ${id}`);
   return c;
 };
+
+/** الفصل الحالي حسب الإطار */
+export const chapterAt = (frame: number): Chapter =>
+  CHAPTERS.find((c) => frame >= c.start && frame < c.end) ?? CHAPTERS[0]!;
 
 /** local frame inside a chapter */
 export const local = (frame: number, id: string) => frame - byId(id).start;

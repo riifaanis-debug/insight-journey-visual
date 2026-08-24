@@ -38,7 +38,7 @@ const INSIGHTS = [
  * العنصر المستمر: ملف العميل. لا يختفي ولا يُعاد إنشاؤه —
  * يتحول فقط بين المراحل حاملاً مخرجاتها.
  */
-export const ProfileCore: React.FC<ProfileState> = ({
+export const ProfileCore: React.FC<ProfileState & { mode?: "full" | "compact" | "mini" }> = ({
   lanes,
   unify,
   insight,
@@ -51,9 +51,15 @@ export const ProfileCore: React.FC<ProfileState> = ({
   glow = 0,
   width = 880,
   id = "CUST-48219",
+  mode = "full",
 }) => {
   const k = width / 620;
   const sz = (n: number) => Math.round(n * k);
+  const allRows = rows ?? [];
+  const shownRows =
+    mode === "mini" ? [] : mode === "compact" ? allRows.slice(0, 3) : allRows;
+  const showInsight = mode !== "mini";
+
   return (
     <div
       dir="rtl"
@@ -185,7 +191,7 @@ export const ProfileCore: React.FC<ProfileState> = ({
         </div>
 
         {/* طبقات الفهم */}
-        {insight > 0.01 ? (
+        {showInsight && insight > 0.01 ? (
           <div
             style={{
               display: "flex",
@@ -219,10 +225,10 @@ export const ProfileCore: React.FC<ProfileState> = ({
         ) : null}
 
         {/* حقائق الحالة */}
-        {rows?.length ? (
+        {shownRows.length ? (
           <div style={{ marginTop: sz(20) }}>
-            {rows.map((r, i) => {
-              const o = Math.max(0, Math.min(1, rowsReveal * rows.length - i));
+            {shownRows.map((r, i) => {
+              const o = Math.max(0, Math.min(1, rowsReveal * shownRows.length - i));
               return (
                 <div
                   key={r.en}
@@ -232,7 +238,7 @@ export const ProfileCore: React.FC<ProfileState> = ({
                     alignItems: "baseline",
                     padding: `${sz(9)}px 0`,
                     borderBottom:
-                      i < rows.length - 1 ? `1px solid #F0EDE4` : "none",
+                      i < shownRows.length - 1 ? `1px solid #F0EDE4` : "none",
                     opacity: o,
                     transform: `translateX(${(1 - o) * -20}px)`,
                   }}

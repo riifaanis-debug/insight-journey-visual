@@ -36,7 +36,7 @@ const PERSONAS = [
 export const CycleStations: React.FC = () => (
   <>
     {/* 01 — استلام البيانات */}
-    <Station id="s01">
+    <Station id="s01" top={520} pad={90}>
       {(f) => (
         <Wrap>
           <Lines>
@@ -71,7 +71,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 02 — توحيد البيانات */}
-    <Station id="s02">
+    <Station id="s02" top={90} pad={80}>
       {(f) => {
         const m = seg(f, 20, 78);
         return (
@@ -134,7 +134,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 03 — بناء الفهم */}
-    <Station id="s03">
+    <Station id="s03" top={40} pad={70}>
       {(f) => {
         const items = [
           { ar: "الحالة المالية", en: "Financial State", d: "قدرة السداد وأنماط الدفع" },
@@ -189,7 +189,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 04 — الأبعاد */}
-    <Station id="s04">
+    <Station id="s04" top={-520} pad={120}>
       {(f) => (
         <Wrap>
           <Lines>
@@ -200,7 +200,7 @@ export const CycleStations: React.FC = () => (
                   key={i}
                   path={track(
                     [0, 0],
-                    [Math.cos(a) * 560, Math.sin(a) * 640],
+                    [Math.cos(a) * 560, Math.sin(a) * 470],
                     0.05,
                   )}
                   progress={seg(f, 8 + i * 7, 48 + i * 7)}
@@ -218,7 +218,7 @@ export const CycleStations: React.FC = () => (
               <P
                 key={d.en}
                 x={Math.cos(a) * 620}
-                y={Math.sin(a) * 700}
+                y={Math.sin(a) * 520}
                 o={seg(f, 20 + i * 7, 56 + i * 7)}
               >
                 <Gauge
@@ -236,7 +236,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 05 — تحديد الشخصية */}
-    <Station id="s05">
+    <Station id="s05" top={-40} pad={80}>
       {(f) => (
         <Wrap>
           {PERSONAS.map((p, i) => {
@@ -306,7 +306,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 06 — درجة الشخصية */}
-    <Station id="s06">
+    <Station id="s06" top={60} pad={180}>
       {(f) => {
         const g = seg(f, 16, 90);
         const outs = [
@@ -333,7 +333,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 07 — الجاهزية للقرار */}
-    <Station id="s07">
+    <Station id="s07" top={-40} pad={70}>
       {(f) => {
         const items = [
           { ar: "البيانات", en: "Data" },
@@ -358,7 +358,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 08 — محرك القرار */}
-    <Station id="s08">
+    <Station id="s08" top={-30} pad={90}>
       {(f) => {
         const alts = [
           { ar: "تذكير رقمي", en: "Digital Reminder", fit: 0.86, ok: true },
@@ -406,7 +406,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 09 — NBCA */}
-    <Station id="s09">
+    <Station id="s09" top={120} pad={520}>
       {(f) => {
         const items = [
           { ar: "القناة", en: "Channel", v: "رسالة نصية" },
@@ -445,7 +445,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 10 — التنفيذ */}
-    <Station id="s10">
+    <Station id="s10" top={-90} pad={90}>
       {(f) => (
         <Wrap>
           <P x={-260} y={140} o={seg(f, 12, 42)}>
@@ -473,7 +473,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 11 — قياس النتائج */}
-    <Station id="s11">
+    <Station id="s11" top={40} pad={70}>
       {(f) => {
         const res = [
           { ar: "تم الوصول", en: "Reached", d: 12 },
@@ -523,7 +523,7 @@ export const CycleStations: React.FC = () => (
     </Station>
 
     {/* 12 — التعلم والتحديث */}
-    <Station id="s12">
+    <Station id="s12" top={100} pad={80}>
       {(f) => {
         const upd = [
           { ar: "المؤشرات", en: "Dimensions" },

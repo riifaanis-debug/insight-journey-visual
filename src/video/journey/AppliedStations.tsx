@@ -26,7 +26,7 @@ const G = {
 export const AppliedStations: React.FC = () => (
   <>
     {/* 01 — استلام بيانات العميل */}
-    <Station id="a1">
+    <Station id="a1" top={520} pad={90}>
       {(f) => (
         <Wrap>
           <Lines>
@@ -57,7 +57,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 02 — توحيد سجلاته */}
-    <Station id="a2">
+    <Station id="a2" top={180} pad={80}>
       {(f) => {
         const m = seg(f, 18, 78);
         return (
@@ -142,7 +142,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 03 — الفهم */}
-    <Station id="a3">
+    <Station id="a3" top={60} pad={70}>
       {(f) => (
         <Wrap>
           <Lines>
@@ -181,7 +181,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 04 — الأبعاد بقيمه الفعلية */}
-    <Station id="a4">
+    <Station id="a4" top={-520} pad={120}>
       {(f) => (
         <Wrap>
           <Lines>
@@ -190,7 +190,7 @@ export const AppliedStations: React.FC = () => (
               return (
                 <PulseTrack
                   key={i}
-                  path={track([0, 0], [Math.cos(a) * 560, Math.sin(a) * 640], 0.05)}
+                  path={track([0, 0], [Math.cos(a) * 560, Math.sin(a) * 470], 0.05)}
                   progress={seg(f, 6 + i * 7, 46 + i * 7)}
                   flow={(f * 0.018 + i * 0.2) % 1}
                   color={G.understanding.soft}
@@ -207,7 +207,7 @@ export const AppliedStations: React.FC = () => (
               <P
                 key={d.en}
                 x={Math.cos(a) * 620}
-                y={Math.sin(a) * 700}
+                y={Math.sin(a) * 520}
                 o={seg(f, 18 + i * 7, 54 + i * 7)}
               >
                 <Gauge
@@ -227,7 +227,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 05 — الشخصية */}
-    <Station id="a5">
+    <Station id="a5" top={-40} pad={90}>
       {(f) => (
         <Wrap>
           {CASE.personas.map((p, i) => {
@@ -287,7 +287,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 06 — تركيب الدرجة */}
-    <Station id="a6">
+    <Station id="a6" top={40} pad={180}>
       {(f) => {
         const g = seg(f, 16, 96);
         return (
@@ -341,7 +341,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 07 — الجاهزية بقيم فعلية */}
-    <Station id="a7">
+    <Station id="a7" top={-90} pad={70}>
       {(f) => (
         <Wrap>
           {CASE.readiness.map((it, i) => {
@@ -392,7 +392,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 08 — المحرك والبدائل */}
-    <Station id="a8">
+    <Station id="a8" top={-60} pad={90}>
       {(f) => {
         const verdict = seg(f, 140, 182);
         return (
@@ -433,7 +433,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 09 — NBCA مقابل التقليدي */}
-    <Station id="a9">
+    <Station id="a9" top={40} pad={90}>
       {(f) => (
         <Wrap>
           <P y={40} o={seg(f, 8, 40)}>
@@ -479,7 +479,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 10 — التنفيذ */}
-    <Station id="a10">
+    <Station id="a10" top={-140} pad={90}>
       {(f) => (
         <Wrap>
           <P x={-300} y={150} o={seg(f, 8, 38)}>
@@ -511,7 +511,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 11 — النتيجة بالأرقام */}
-    <Station id="a11">
+    <Station id="a11" top={70} pad={70}>
       {(f) => (
         <Wrap>
           {CASE.metrics.map((m, i) => {
@@ -555,7 +555,7 @@ export const AppliedStations: React.FC = () => (
     </Station>
 
     {/* 12 — التعلم والتحديث */}
-    <Station id="a12">
+    <Station id="a12" top={130} pad={80}>
       {(f) => {
         const g = seg(f, 24, 100);
         return (

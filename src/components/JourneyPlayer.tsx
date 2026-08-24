@@ -5,16 +5,19 @@ const LazyPlayer = lazy(async () => {
     import("@remotion/player"),
     import("../video/MainVideo"),
   ]);
+  const q = new URLSearchParams(window.location.search);
+  const f = q.get("frame");
   return {
     default: () => (
       <Player
+        initialFrame={f ? Number(f) : 0}
         component={MainVideo}
         durationInFrames={TOTAL}
         compositionWidth={1080}
         compositionHeight={1920}
         fps={30}
         controls
-        autoPlay
+        autoPlay={!f}
         loop
         clickToPlay
         doubleClickToFullscreen
