@@ -25,32 +25,8 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main
-      dir="rtl"
-      className="min-h-screen bg-background px-4 py-10 sm:py-14"
-      style={{
-        backgroundImage:
-          "radial-gradient(120% 80% at 50% 0%, color-mix(in oklch, var(--color-primary) 8%, transparent), transparent 70%)",
-      }}
-    >
-      <div className="mx-auto flex w-full max-w-md flex-col items-center gap-6">
-        <header className="text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Collection Persona Framework™
-          </h1>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            الدورة التشغيلية | Operating Cycle
-            <br />
-            وحالة تطبيقية | Applied Case
-          </p>
-        </header>
-
-        <JourneyPlayer />
-
-        <p className="text-center text-xs leading-relaxed text-muted-foreground">
-          Data → Understanding → Decision → Action → Outcome → Learning ↻
-        </p>
-      </div>
+    <main dir="rtl" className="h-[100dvh] w-full overflow-hidden bg-black">
+      <JourneyPlayer />
     </main>
   );
 }
