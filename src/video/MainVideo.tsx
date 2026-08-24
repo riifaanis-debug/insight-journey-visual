@@ -106,9 +106,14 @@ export const MainVideo: React.FC = () => {
   const intro = byId("intro");
   const bridge = byId("bridge");
   const fin = byId("finale");
+  // الجسر بين الجزأين هو المكان الوحيد الذي يخفت فيه العالم قليلاً
+  const bridgeDim =
+    seg(frame, bridge.start, bridge.start + 22) *
+    (1 - seg(frame, bridge.end - 26, bridge.end));
   const worldOpacity =
     seg(frame, intro.end - 50, intro.end + 10) *
-    (1 - seg(frame, fin.start + 10, fin.start + 60));
+    (1 - seg(frame, fin.start + 10, fin.start + 60)) *
+    (1 - bridgeDim * 0.9);
   const illus =
     seg(frame, byId("s05").start, byId("s05").start + 30) *
     (1 - seg(frame, fin.start - 30, fin.start));

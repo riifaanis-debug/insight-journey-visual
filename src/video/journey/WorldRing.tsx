@@ -18,10 +18,13 @@ export const WorldRing: React.FC = () => {
   const f = useCurrentFrame();
   const ov = byId("overview");
   const fin = byId("finale");
-  const reveal = Math.max(
-    seg(f, ov.start - 40, ov.start + 50),
-    seg(f, fin.start - 30, fin.start + 40),
-  );
+  // تظهر تسميات المراحل فقط في لقطة النظرة الشاملة ثم تعود للاختفاء
+  const reveal =
+    Math.max(
+      seg(f, ov.start - 40, ov.start + 50) *
+        (1 - seg(f, ov.end - 40, ov.end + 10)),
+      seg(f, fin.start - 60, fin.start - 10),
+    ) * (1 - seg(f, fin.start + 10, fin.start + 45));
   const base = 0.16 + reveal * 0.84;
   const r = RING_R;
   const cir = 2 * Math.PI * r;
