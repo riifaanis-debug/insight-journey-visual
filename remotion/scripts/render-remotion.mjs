@@ -32,7 +32,9 @@ await renderMedia({
   codec: "h264",
   outputLocation: out,
   puppeteerInstance: browser,
-  muted: true,
+  muted: false,
+  audioCodec: "aac",
+  enforceAudioTrack: true,
   concurrency: 4,
   frameRange: frames ? frames.split("-").map(Number) : undefined,
   onProgress: ({ renderedFrames }) => {

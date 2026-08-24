@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Sequence, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Sequence, useCurrentFrame } from "remotion";
 import { Bg } from "./components/Bg";
 import { FSTACK } from "./font";
 import { C, seg } from "./theme";
@@ -11,12 +11,25 @@ import { ProfileCore } from "./journey/ProfileCore";
 import { useProfileState } from "./journey/profileState";
 import { Titles, IllustrativeTag } from "./journey/Titles";
 import { byId, chapterAt, CHAPTERS, TOTAL, APPLIED_FIRST, APPLIED_LAST, PROFILE_TOP } from "./journey/timeline";
+import { VO } from "./journey/vo";
 import { Intro } from "./scenes/Intro";
 import { Bridge } from "./scenes/Bridge";
 import { AppliedBg } from "./journey/AppliedBg";
 import { Finale } from "./scenes/Finale";
 
 export { TOTAL };
+
+/** التعليق الصوتي: مقطع لكل فصل يبدأ مع بدايته */
+const Narration: React.FC = () => (
+  <>
+    {CHAPTERS.filter((c) => VO[c.id]).map((c) => (
+      <Sequence key={`vo-${c.id}`} from={c.start} durationInFrames={c.dur}>
+        <Audio src={VO[c.id]!} />
+      </Sequence>
+    ))}
+  </>
+);
+
 
 /** الملف المستمر: مثبّت في نطاق ثابت من الشاشة أسفل العناوين */
 const ProfileLayer: React.FC = () => {
@@ -135,7 +148,10 @@ export const MainVideo: React.FC = () => {
         <ProfileLayer />
       </AbsoluteFill>
 
+      <Narration />
+
       <Titles />
+
       <AppliedBadge />
       <OverviewCaption />
       <IllustrativeTag opacity={illus} />
