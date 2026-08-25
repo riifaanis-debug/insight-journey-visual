@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const out = process.argv[2] ?? "/mnt/documents/cpf-framework.mp4";
 const frames = process.argv[3];
-const CACHE = "/tmp/remotion-bundle";
+const CACHE = process.env.BUNDLE ?? "/tmp/remotion-bundle";
 
 const bundled = fs.existsSync(path.join(CACHE, "index.html"))
   ? CACHE
@@ -28,7 +28,7 @@ const browser = await openBrowser("chrome", {
 
 const composition = await selectComposition({
   serveUrl: bundled,
-  id: "main",
+  id: process.env.COMP ?? "main",
   puppeteerInstance: browser,
 });
 
@@ -38,9 +38,9 @@ await renderMedia({
   codec: "h264",
   outputLocation: out,
   puppeteerInstance: browser,
-  muted: false,
-  audioCodec: "aac",
-  enforceAudioTrack: true,
+  muted: process.env.MUTED === "1",
+  audioCodec: process.env.MUTED === "1" ? null : "aac",
+  enforceAudioTrack: process.env.MUTED !== "1",
   concurrency: Number(process.env.CONC ?? 8),
   frameRange: frames ? frames.split("-").map(Number) : undefined,
   onProgress: ({ renderedFrames }) => {
