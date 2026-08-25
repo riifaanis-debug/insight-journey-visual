@@ -2,6 +2,7 @@ import React from "react";
 import { useCurrentFrame } from "remotion";
 import { byId, stationPos, TRANS } from "./timeline";
 import { At } from "./Camera";
+import { useLayout } from "./layout";
 
 /**
  * محطة في العالم: محتواها موجود في مكانه، تظهر عناصره مع اقتراب الكاميرا
@@ -18,6 +19,7 @@ export const Station: React.FC<{
   children: (f: number) => React.ReactNode;
 }> = ({ id, top = 0, pad = 110, dy = 0, width = 1200, children }) => {
   const frame = useCurrentFrame();
+  const L = useLayout();
   const ch = byId(id);
   const [sx, sy] = ch.station === null ? [0, 0] : stationPos(ch.station);
   const f = frame - ch.start;
@@ -26,7 +28,8 @@ export const Station: React.FC<{
   const vis = Math.min(inW, outW);
   if (vis <= 0.001) return null;
   // ينزل محتوى المحطة أسفل النطاق المحجوز لبطاقة الملف
-  const shift = (ch.widgetTop - 960) / ch.zoom - (top - pad) + dy;
+  const wTop = L.widgetTop ?? ch.widgetTop;
+  const shift = (wTop - L.camCY) / (ch.zoom * L.zoomK(ch)) - (top - pad) + dy;
   return (
     <At x={sx} y={sy + shift} opacity={vis} width={width}>
       <div style={{ position: "relative" }}>{children(f)}</div>

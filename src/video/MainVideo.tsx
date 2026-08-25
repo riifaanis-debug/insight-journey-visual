@@ -10,8 +10,9 @@ import { AppliedStations } from "./journey/AppliedStations";
 import { ProfileCore } from "./journey/ProfileCore";
 import { useProfileState } from "./journey/profileState";
 import { Titles, IllustrativeTag } from "./journey/Titles";
-import { byId, chapterAt, CHAPTERS, TOTAL, APPLIED_FIRST, APPLIED_LAST, PROFILE_TOP } from "./journey/timeline";
+import { byId, chapterAt, CHAPTERS, TOTAL, APPLIED_FIRST, APPLIED_LAST } from "./journey/timeline";
 import { VO } from "./journey/vo";
+import { useLayout } from "./journey/layout";
 import { Intro } from "./scenes/Intro";
 import { Bridge } from "./scenes/Bridge";
 import { AppliedBg } from "./journey/AppliedBg";
@@ -34,7 +35,8 @@ const Narration: React.FC = () => (
 /** الملف المستمر: مثبّت في نطاق ثابت من الشاشة أسفل العناوين */
 const ProfileLayer: React.FC = () => {
   const frame = useCurrentFrame();
-  const s = useCameraValue((c) => c.profScale, frame);
+  const L = useLayout();
+  const s = useCameraValue((c) => c.profScale, frame) * L.profK;
   const mode = chapterAt(frame).mode;
   const state = useProfileState();
   const intro = byId("intro");
@@ -46,8 +48,8 @@ const ProfileLayer: React.FC = () => {
     <div
       style={{
         position: "absolute",
-        left: 540,
-        top: PROFILE_TOP,
+        left: L.profLeft,
+        top: L.profTop,
         transform: `translateX(-50%) scale(${s})`,
         transformOrigin: "50% 0",
         opacity,
@@ -118,7 +120,12 @@ const AppliedBadge: React.FC = () => {
   );
 };
 
-export const MainVideo: React.FC = () => {
+export const Journey: React.FC<{
+  /** التعليق الصوتي — يُطفأ في النسخة الصامتة */
+  audio?: boolean;
+  /** الاقتصار على الدورة التشغيلية (بدون الحالة التطبيقية والختام) */
+  cycleOnly?: boolean;
+}> = ({ audio = true, cycleOnly = false }) => {
   const frame = useCurrentFrame();
   const intro = byId("intro");
   const bridge = byId("bridge");
@@ -138,21 +145,21 @@ export const MainVideo: React.FC = () => {
   return (
     <AbsoluteFill style={{ fontFamily: FSTACK, backgroundColor: C.bg }}>
       <Bg />
-      <AppliedBg />
+      {cycleOnly ? null : <AppliedBg />}
       <AbsoluteFill style={{ opacity: worldOpacity }}>
         <World>
           <WorldRing />
           <CycleStations />
-          <AppliedStations />
+          {cycleOnly ? null : <AppliedStations />}
         </World>
         <ProfileLayer />
       </AbsoluteFill>
 
-      <Narration />
+      {audio ? <Narration /> : null}
 
       <Titles />
 
-      <AppliedBadge />
+      {cycleOnly ? null : <AppliedBadge />}
       <OverviewCaption />
       <IllustrativeTag opacity={illus} />
 
@@ -162,20 +169,26 @@ export const MainVideo: React.FC = () => {
         </FadeOut>
       </Sequence>
 
-      <Sequence from={bridge.start} durationInFrames={bridge.dur + 20}>
-        <FadeOut hold={bridge.dur - 34} fadeIn>
-          <Bridge />
-        </FadeOut>
-      </Sequence>
+      {cycleOnly ? null : (
+        <>
+          <Sequence from={bridge.start} durationInFrames={bridge.dur + 20}>
+            <FadeOut hold={bridge.dur - 34} fadeIn>
+              <Bridge />
+            </FadeOut>
+          </Sequence>
 
-      <Sequence from={fin.start} durationInFrames={fin.dur}>
-        <FadeOut hold={fin.dur} fadeIn>
-          <Finale />
-        </FadeOut>
-      </Sequence>
+          <Sequence from={fin.start} durationInFrames={fin.dur}>
+            <FadeOut hold={fin.dur} fadeIn>
+              <Finale />
+            </FadeOut>
+          </Sequence>
+        </>
+      )}
     </AbsoluteFill>
   );
 };
+
+export const MainVideo: React.FC = () => <Journey />;
 
 /** fade مسموح فقط للبداية والانتقال بين الجزأين والختام */
 const FadeOut: React.FC<{

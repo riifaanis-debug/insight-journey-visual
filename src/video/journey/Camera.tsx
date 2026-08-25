@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { CHAPTERS, TRANS, type Chapter } from "./timeline";
+import { useLayout } from "./layout";
 
 const easeInOut = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -42,14 +43,21 @@ export const useCameraValue = (
 
 export const useCamera = () => {
   const frame = useCurrentFrame();
+  const L = useLayout();
   const x = useCameraValue((c) => c.camX, frame);
   const y = useCameraValue((c) => c.camY, frame);
-  const zoom = useCameraValue((c) => c.zoom, frame);
+  const zoom = useCameraValue((c) => c.zoom * L.zoomK(c), frame);
   return { x, y, zoom };
 };
 
 export const World: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { x, y, zoom } = useCamera();
+  const L = useLayout();
+  const frame = useCurrentFrame();
+  const cy = useCameraValue(
+    (c) => (c.station === null ? L.camCYCenter : L.camCY),
+    frame,
+  );
   return (
     <AbsoluteFill style={{ overflow: "hidden" }}>
       <div
@@ -59,7 +67,7 @@ export const World: React.FC<{ children: React.ReactNode }> = ({ children }) => 
           top: 0,
           width: 0,
           height: 0,
-          transform: `translate(${540 - x * zoom}px, ${960 - y * zoom}px) scale(${zoom})`,
+          transform: `translate(${L.camCX - x * zoom}px, ${cy - y * zoom}px) scale(${zoom})`,
           transformOrigin: "0 0",
         }}
       >
