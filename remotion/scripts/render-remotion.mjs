@@ -1,16 +1,22 @@
 import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition, openBrowser } from "@remotion/renderer";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const out = process.argv[2] ?? "/mnt/documents/cpf-framework.mp4";
 const frames = process.argv[3];
+const CACHE = "/tmp/remotion-bundle";
 
-const bundled = await bundle({
-  entryPoint: path.resolve(__dirname, "../src/live.ts"),
-  webpackOverride: (config) => config,
-});
+const bundled = fs.existsSync(path.join(CACHE, "index.html"))
+  ? CACHE
+  : await bundle({
+      entryPoint: path.resolve(__dirname, "../src/live.ts"),
+      outDir: CACHE,
+      webpackOverride: (config) => config,
+    });
+
 
 const browser = await openBrowser("chrome", {
   browserExecutable: process.env.PUPPETEER_EXECUTABLE_PATH ?? "/bin/chromium",
@@ -35,7 +41,7 @@ await renderMedia({
   muted: false,
   audioCodec: "aac",
   enforceAudioTrack: true,
-  concurrency: 4,
+  concurrency: Number(process.env.CONC ?? 8),
   frameRange: frames ? frames.split("-").map(Number) : undefined,
   onProgress: ({ renderedFrames }) => {
     if (renderedFrames % 120 === 0) console.log("frames:", renderedFrames);
