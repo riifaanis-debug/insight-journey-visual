@@ -22,7 +22,10 @@ export const RemotionRoot: React.FC = () => (
       durationInFrames={CYCLE_TOTAL}
       fps={30}
       width={1920}
+      height={1080}
+    />
     <Composition
+
       id="cycle-slides"
       component={SlidesVideo}
       durationInFrames={SLIDES_TOTAL}
