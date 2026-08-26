@@ -2,6 +2,8 @@ import React from "react";
 import { Composition } from "remotion";
 import { MainVideo, TOTAL } from "./MainVideo";
 import { CycleVideo, CYCLE_TOTAL } from "./CycleVideo";
+import { SlidesVideo, SLIDES_TOTAL } from "./slides/SlidesVideo";
+
 
 /** تركيبة واحدة يستخدمها المشغّل الحي داخل الموقع وأي رندر لاحق */
 export const RemotionRoot: React.FC = () => (
@@ -22,5 +24,15 @@ export const RemotionRoot: React.FC = () => (
       width={1920}
       height={1080}
     />
+    <Composition
+
+      id="cycle-slides"
+      component={SlidesVideo}
+      durationInFrames={SLIDES_TOTAL}
+      fps={1}
+      width={1280}
+      height={1920}
+    />
   </>
 );
+
