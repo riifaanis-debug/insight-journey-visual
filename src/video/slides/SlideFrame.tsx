@@ -269,8 +269,8 @@ export const SlideFrame: React.FC<{ slide: Slide }> = ({ slide }) => {
           position: "absolute",
           left: 320,
           top: 1252,
+          width: 640,
 
-          width: 680,
           background: "#FFFFFFEE",
           borderRadius: 22,
           padding: "58px 34px 26px",
