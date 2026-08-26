@@ -14,9 +14,9 @@ const INK = "#233029";
 const MUTED = "#54655C";
 
 const CX = 960;
-const CY = 1010;
-const R = 560;
-const LR = 712;
+const CY = 1035;
+const R = 500;
+const LW = 306;
 
 const GROUPS = [
   { ar: "البيانات", en: "Data", color: "#3E9C4E", from: 0, to: 2 },
