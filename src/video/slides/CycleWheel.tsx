@@ -14,7 +14,7 @@ const INK = "#233029";
 const MUTED = "#54655C";
 
 const CX = 960;
-const CY = 1035;
+const CY = 1075;
 const R = 500;
 const LW = 306;
 
