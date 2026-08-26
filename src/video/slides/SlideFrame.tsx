@@ -163,21 +163,31 @@ export const SlideFrame: React.FC<{ slide: Slide }> = ({ slide }) => {
         }}
       >
         <div dir="rtl" style={{ textAlign: "center" }}>
-          <div style={{ fontSize: 54, fontWeight: 800, color: GREEN, lineHeight: 1.15 }}>
+          <div
+            style={{
+              fontSize: s.ar.length > 20 ? 46 : 54,
+              fontWeight: 800,
+              color: GREEN,
+              lineHeight: 1.15,
+              whiteSpace: "nowrap",
+            }}
+          >
             {s.ar}
           </div>
           <div
             style={{
               fontFamily: `${FEN}, sans-serif`,
-              fontSize: 42,
+              fontSize: s.en.length > 22 ? 34 : 42,
               fontWeight: 700,
               color: GREEN,
               marginTop: 4,
+              whiteSpace: "nowrap",
             }}
           >
             {s.en}
           </div>
         </div>
+
         <div
           style={{
             width: 82,
