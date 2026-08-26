@@ -202,7 +202,7 @@ export const CycleWheel: React.FC = () => (
                 top: sn < 0 ? node.y - 96 - 116 : node.y + 96,
                 textAlign: "center",
               };
-      const color = s.items[0].color;
+      const color = GROUPS.find((g) => i >= g.from && i <= g.to)!.color;
       return (
         <React.Fragment key={s.num}>
           <div
