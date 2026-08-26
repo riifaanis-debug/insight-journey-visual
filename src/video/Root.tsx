@@ -2,6 +2,8 @@ import React from "react";
 import { Composition } from "remotion";
 import { MainVideo, TOTAL } from "./MainVideo";
 import { CycleVideo, CYCLE_TOTAL } from "./CycleVideo";
+import { SlidesVideo, SLIDES_TOTAL } from "./slides/SlidesVideo";
+
 
 /** تركيبة واحدة يستخدمها المشغّل الحي داخل الموقع وأي رندر لاحق */
 export const RemotionRoot: React.FC = () => (
