@@ -4,6 +4,7 @@ import { MainVideo, TOTAL } from "./MainVideo";
 import { CycleVideo, CYCLE_TOTAL } from "./CycleVideo";
 import { SlidesVideo, SLIDES_TOTAL } from "./slides/SlidesVideo";
 import { CycleWheel, WW, WH } from "./slides/CycleWheel";
+import { CycleWheelMotion, WHEEL_TOTAL } from "./slides/CycleWheelMotion";
 
 
 
@@ -43,7 +44,16 @@ export const RemotionRoot: React.FC = () => (
       width={WW}
       height={WH}
     />
+    <Composition
+      id="cycle-wheel-motion"
+      component={CycleWheelMotion}
+      durationInFrames={WHEEL_TOTAL}
+      fps={30}
+      width={WW}
+      height={WH}
+    />
   </>
+
 
 );
 
