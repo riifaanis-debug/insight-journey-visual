@@ -145,7 +145,7 @@ export const CycleWheel: React.FC = () => (
     <div
       style={{
         position: "absolute",
-        top: 212,
+        top: 272,
         width: "100%",
         display: "flex",
         justifyContent: "center",
