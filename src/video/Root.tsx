@@ -44,7 +44,16 @@ export const RemotionRoot: React.FC = () => (
       width={WW}
       height={WH}
     />
+    <Composition
+      id="cycle-wheel-motion"
+      component={CycleWheelMotion}
+      durationInFrames={WHEEL_TOTAL}
+      fps={30}
+      width={WW}
+      height={WH}
+    />
   </>
+
 
 );
 
