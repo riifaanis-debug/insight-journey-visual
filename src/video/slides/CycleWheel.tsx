@@ -189,7 +189,19 @@ export const CycleWheel: React.FC = () => (
     {/* العقد الـ12 */}
     {SLIDES.map((s, i) => {
       const node = pt(i, R);
-      const label = pt(i, LR);
+      const c = Math.cos(ang(i));
+      const sn = Math.sin(ang(i));
+      const side = c > 0.3 ? "right" : c < -0.3 ? "left" : "center";
+      const box: React.CSSProperties =
+        side === "right"
+          ? { left: node.x + 96, top: node.y - 56, textAlign: "left" }
+          : side === "left"
+            ? { left: node.x - 96 - LW, top: node.y - 56, textAlign: "right" }
+            : {
+                left: node.x - LW / 2,
+                top: sn < 0 ? node.y - 96 - 116 : node.y + 96,
+                textAlign: "center",
+              };
       const color = s.items[0].color;
       return (
         <React.Fragment key={s.num}>
@@ -230,12 +242,11 @@ export const CycleWheel: React.FC = () => (
             dir="rtl"
             style={{
               position: "absolute",
-              left: label.x - 165,
-              top: label.y - 52,
-              width: 330,
-              textAlign: "center",
+              width: LW,
+              ...box,
             }}
           >
+
             <div style={{ fontSize: 34, fontWeight: 800, color: INK, lineHeight: 1.25 }}>
               {s.ar}
             </div>
