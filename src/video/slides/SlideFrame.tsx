@@ -298,7 +298,7 @@ export const SlideFrame: React.FC<{ slide: Slide }> = ({ slide }) => {
         style={{
           position: "absolute",
           left: CX - 42,
-          top: 1198,
+          top: 1210,
           width: 84,
           height: 84,
           borderRadius: "50%",
