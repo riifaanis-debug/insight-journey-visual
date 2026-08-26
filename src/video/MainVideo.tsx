@@ -6,6 +6,7 @@ import { C, seg } from "./theme";
 import { World, useCameraValue } from "./journey/Camera";
 import { WorldRing } from "./journey/WorldRing";
 import { CycleStations } from "./journey/CycleStations";
+import { PersonaStations } from "./journey/PersonaStations";
 import { AppliedStations } from "./journey/AppliedStations";
 import { ProfileCore } from "./journey/ProfileCore";
 import { useProfileState } from "./journey/profileState";
@@ -150,6 +151,7 @@ export const Journey: React.FC<{
         <World>
           <WorldRing />
           <CycleStations />
+          <PersonaStations />
           {cycleOnly ? null : <AppliedStations />}
         </World>
         <ProfileLayer />

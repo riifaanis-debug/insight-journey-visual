@@ -1,3 +1,5 @@
+import { PERSONA_DEFS } from "./personaData";
+
 export type Part = "cycle" | "applied" | "special";
 
 export type Group =
@@ -17,7 +19,10 @@ export type ChapterDef = {
   part: Part;
   /** ring station index (0..11) or null for ring centre */
   station: number | null;
+  /** موضع حر في العالم (للوحات المتفرعة خارج الحلقة) */
+  pos?: [number, number];
   zoom: number;
+
   group?: Group;
   /** camera offset from the station centre, in world px */
   focus?: [number, number];
@@ -118,6 +123,37 @@ const DEFS: ChapterDef[] = [
     en: "Dimensions Analysis",
     desc: "سبعة مؤشرات تُقاس حول الملف",
   },
+
+  /* ====== لوحات الشخصيات الأساسية: قوس متفرّع بعد تحليل الأبعاد ====== */
+  {
+    id: "p00",
+    dur: 620,
+    part: "cycle",
+    station: null,
+    pos: [RING_R + 2200, -260],
+    zoom: 0.66,
+    group: "understanding",
+    pMode: "mini",
+    pScale: 0.5,
+    wTop: 640,
+    ar: "الشخصيات الأساسية",
+    en: "Core Collection Personas",
+  },
+  ...PERSONA_DEFS.map((p, i) => ({
+    id: `p${String(i + 1).padStart(2, "0")}`,
+    dur: 480,
+    part: "cycle" as const,
+    station: null,
+    pos: [RING_R + 2200 + (i + 1) * 2500, i % 2 === 0 ? 320 : -320] as [number, number],
+    zoom: 0.72,
+    group: "understanding" as const,
+    pMode: "mini" as const,
+    pScale: 0.5,
+    wTop: 700,
+    ar: p.ar,
+    en: p.en,
+  })),
+
   {
     id: "s05",
     dur: 940,
@@ -449,7 +485,7 @@ export type Chapter = ChapterDef & {
 
 let acc = 0;
 export const CHAPTERS: Chapter[] = DEFS.map((d) => {
-  const [sx, sy] = d.station === null ? [0, 0] : stationPos(d.station);
+  const [sx, sy] = d.pos ?? (d.station === null ? [0, 0] : stationPos(d.station));
   const [fx, fy] = d.focus ?? [0, 0];
   const c: Chapter = {
     ...d,

@@ -55,7 +55,7 @@ export const World: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const L = useLayout();
   const frame = useCurrentFrame();
   const cy = useCameraValue(
-    (c) => (c.station === null ? L.camCYCenter : L.camCY),
+    (c) => (c.station === null && !c.pos ? L.camCYCenter : L.camCY),
     frame,
   );
   return (
