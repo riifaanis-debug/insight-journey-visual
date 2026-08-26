@@ -3,6 +3,8 @@ import { Composition } from "remotion";
 import { MainVideo, TOTAL } from "./MainVideo";
 import { CycleVideo, CYCLE_TOTAL } from "./CycleVideo";
 import { SlidesVideo, SLIDES_TOTAL } from "./slides/SlidesVideo";
+import { CycleWheel, WW, WH } from "./slides/CycleWheel";
+
 
 
 /** تركيبة واحدة يستخدمها المشغّل الحي داخل الموقع وأي رندر لاحق */
@@ -33,6 +35,15 @@ export const RemotionRoot: React.FC = () => (
       width={1280}
       height={1920}
     />
+    <Composition
+      id="cycle-wheel"
+      component={CycleWheel}
+      durationInFrames={1}
+      fps={1}
+      width={WW}
+      height={WH}
+    />
   </>
+
 );
 
