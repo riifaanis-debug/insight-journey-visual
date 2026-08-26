@@ -21,7 +21,7 @@ export const Station: React.FC<{
   const frame = useCurrentFrame();
   const L = useLayout();
   const ch = byId(id);
-  const [sx, sy] = ch.station === null ? [0, 0] : stationPos(ch.station);
+  const [sx, sy] = ch.pos ?? (ch.station === null ? [0, 0] : stationPos(ch.station));
   const f = frame - ch.start;
   const inW = Math.max(0, Math.min(1, (f + TRANS) / TRANS));
   const outW = Math.max(0, Math.min(1, (ch.end - ch.start + TRANS * 0.6 - f) / TRANS));

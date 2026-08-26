@@ -13,7 +13,11 @@ export type ScreenLayout = {
   /** مركز الكاميرا عموديًا في الفصول التي تعرض الحلقة كاملة */
   camCYCenter: number;
   /** معامل تقريب إضافي يطبَّق على زوم الفصل (حسب ارتفاع ودجات الفصل) */
-  zoomK: (c: { widgetTop: number; station: number | null }) => number;
+  zoomK: (c: {
+    widgetTop: number;
+    station: number | null;
+    pos?: [number, number] | undefined;
+  }) => number;
   /** أعلى نطاق ودجات المحطة على الشاشة — يتجاوز قيمة الفصل عند تعريفه */
   widgetTop?: number;
   /** موضع بطاقة ملف العميل */
@@ -43,23 +47,29 @@ export const PORTRAIT: ScreenLayout = {
   titleK: 1,
 };
 
+/** لقطة تعرض الحلقة كاملة (لا محطة ولا لوحة) */
+const wideShot = (c: { station: number | null; pos?: [number, number] | undefined }) =>
+  c.station === null && !c.pos;
+
 export const LANDSCAPE: ScreenLayout = {
   w: 1920,
   h: 1080,
-  camCX: 680,
-  camCY: 340,
-  camCYCenter: 520,
-  // يحافظ على نفس المساحة الرأسية المتاحة للودجات كما في النسخة العمودية
-  zoomK: (c) => ((1080 - 460) / (1920 - c.widgetTop)) * (c.station === null ? 0.7 : 1),
-  widgetTop: 460,
-  profLeft: 1580,
-  profTop: 300,
-  profK: 0.62,
-  titleTop: 44,
-  titleLeft: 60,
-  titleRight: 60,
-  titleK: 0.62,
+  camCX: 620,
+  camCY: 250,
+  camCYCenter: 540,
+  // يستفيد من كامل الارتفاع المتبقي بعد شريط العناوين حتى تظهر البيانات أكبر
+  zoomK: (c) =>
+    c.pos ? 1.15 : ((1080 - 350) / (1920 - c.widgetTop)) * (wideShot(c) ? 0.72 : 1),
+  widgetTop: 350,
+  profLeft: 1500,
+  profTop: 250,
+  profK: 0.8,
+  titleTop: 40,
+  titleLeft: 56,
+  titleRight: 56,
+  titleK: 0.78,
 };
+
 
 const Ctx = createContext<ScreenLayout>(PORTRAIT);
 
