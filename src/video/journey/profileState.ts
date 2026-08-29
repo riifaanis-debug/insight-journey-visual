@@ -6,6 +6,15 @@ import type { ProfileState } from "./ProfileCore";
 
 const at = (id: string, off: number) => byId(id).start + off;
 
+/** بيانات تعريفية توضيحية تُعرض داخل بطاقة الملف */
+const PROFILE_META = [
+  { ar: "الاسم", en: "Name", v: "أحمد محمد الشريف" },
+  { ar: "المدينة", en: "City", v: "الرياض" },
+  { ar: "الشريحة", en: "Segment", v: "أفراد — تجزئة" },
+  { ar: "إجمالي المديونية", en: "Total Exposure", v: "٤٨٬٠٠٠ ر.س" },
+  { ar: "آخر تحديث", en: "Last Update", v: "اليوم ١٠:٢٤" },
+];
+
 /**
  * حالة الملف المستمر: لا يُعاد إنشاؤه — كل مرحلة تضيف إليه مخرجاتها،
  * في الدورة التشغيلية وفي الحالة التطبيقية على السواء.
