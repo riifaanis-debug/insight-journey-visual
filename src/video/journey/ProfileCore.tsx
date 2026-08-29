@@ -49,6 +49,9 @@ export const ProfileCore: React.FC<ProfileState & { mode?: "full" | "compact" | 
   insight,
   rows,
   rowsReveal = 1,
+  meta,
+  metaReveal = 1,
+  completeness = 0,
   persona,
   personaIn = 1,
   score,
@@ -64,6 +67,14 @@ export const ProfileCore: React.FC<ProfileState & { mode?: "full" | "compact" | 
   const shownRows =
     mode === "mini" ? [] : mode === "compact" ? allRows.slice(0, 3) : allRows;
   const showInsight = mode !== "mini";
+  // البيانات الخام تملأ البطاقة في المراحل الأولى، وتتراجع حين تظهر مخرجات التحليل
+  const allMeta = meta ?? [];
+  const shownMeta =
+    metaReveal <= 0.01
+      ? []
+      : shownRows.length
+        ? [] // في الحالة التطبيقية تحل حقائق الحالة محل البيانات التعريفية
+        : allMeta.slice(0, mode === "full" ? 3 : 5);
 
   return (
     <div
@@ -118,6 +129,77 @@ export const ProfileCore: React.FC<ProfileState & { mode?: "full" | "compact" | 
       </div>
 
       <div style={{ padding: `${sz(22)}px ${sz(26)}px ${sz(26)}px` }}>
+        {/* اكتمال البيانات */}
+        {completeness > 0.01 ? (
+          <div style={{ marginBottom: sz(18) }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "baseline",
+                marginBottom: sz(8),
+              }}
+            >
+              <span style={{ fontSize: sz(20), fontWeight: 600, color: C.muted }}>
+                اكتمال البيانات
+              </span>
+              <span dir="ltr" style={{ fontSize: sz(24), fontWeight: 700, color: C.green }}>
+                {Math.round(completeness * 100)}%
+              </span>
+            </div>
+            <div
+              style={{
+                height: sz(12),
+                borderRadius: 999,
+                background: "#EFECE3",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  height: "100%",
+                  width: `${completeness * 100}%`,
+                  background: `linear-gradient(90deg, ${C.green}, ${C.gold})`,
+                }}
+              />
+            </div>
+          </div>
+        ) : null}
+
+        {/* بيانات تعريفية خام */}
+        {shownMeta.length ? (
+          <div style={{ marginBottom: sz(20) }}>
+            {shownMeta.map((r, i) => {
+              const o = Math.max(0, Math.min(1, metaReveal * shownMeta.length - i));
+              return (
+                <div
+                  key={r.en}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                    padding: `${sz(9)}px 0`,
+                    borderBottom:
+                      i < shownMeta.length - 1 ? `1px solid #F0EDE4` : "none",
+                    opacity: o,
+                    transform: `translateX(${(1 - o) * -18}px)`,
+                  }}
+                >
+                  <div style={{ fontSize: sz(21), color: C.muted, fontWeight: 600 }}>
+                    {r.ar}{" "}
+                    <span dir="ltr" style={{ fontSize: sz(17), opacity: 0.8 }}>
+                      | {r.en}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: sz(22), fontWeight: 700, color: C.ink }}>
+                    {r.v}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+
         {/* مسارات المصادر ← شريط موحّد */}
         <div style={{ position: "relative", height: sz(3 * 34 + 8) }}>
           {LANES.map((l, i) => {

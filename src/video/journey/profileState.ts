@@ -6,6 +6,15 @@ import type { ProfileState } from "./ProfileCore";
 
 const at = (id: string, off: number) => byId(id).start + off;
 
+/** بيانات تعريفية توضيحية تُعرض داخل بطاقة الملف */
+const PROFILE_META = [
+  { ar: "الاسم", en: "Name", v: "أحمد محمد الشريف" },
+  { ar: "المدينة", en: "City", v: "الرياض" },
+  { ar: "الشريحة", en: "Segment", v: "أفراد — تجزئة" },
+  { ar: "إجمالي المديونية", en: "Total Exposure", v: "٤٨٬٠٠٠ ر.س" },
+  { ar: "آخر تحديث", en: "Last Update", v: "اليوم ١٠:٢٤" },
+];
+
 /**
  * حالة الملف المستمر: لا يُعاد إنشاؤه — كل مرحلة تضيف إليه مخرجاتها،
  * في الدورة التشغيلية وفي الحالة التطبيقية على السواء.
@@ -35,6 +44,16 @@ export const useProfileState = (): ProfileState => {
 
   const rows = inApplied ? CASE.facts : undefined;
   const rowsReveal = inApplied ? seg(f, at("a1", 24), at("a1", 120)) : 0;
+
+  // بيانات تعريفية خام تملأ البطاقة منذ استلام البيانات
+  const meta = PROFILE_META;
+  const metaReveal = inApplied
+    ? seg(f, at("a1", 16), at("a1", 90))
+    : seg(f, at("s01", 30), at("s01", 130));
+  const completeness =
+    0.35 +
+    0.5 * (inApplied ? appliedUnify : cycleUnify) +
+    0.15 * (inApplied ? appliedInsight : cycleInsight);
 
   const personaSwitch = seg(f, at("a12", 160), at("a12", 195));
   const persona = inApplied
@@ -72,6 +91,9 @@ export const useProfileState = (): ProfileState => {
     insight: inApplied ? appliedInsight : cycleInsight,
     rows,
     rowsReveal,
+    meta,
+    metaReveal,
+    completeness,
     persona,
     personaIn,
     score,
