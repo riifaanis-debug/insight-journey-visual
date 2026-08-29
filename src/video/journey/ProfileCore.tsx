@@ -67,6 +67,16 @@ export const ProfileCore: React.FC<ProfileState & { mode?: "full" | "compact" | 
   const shownRows =
     mode === "mini" ? [] : mode === "compact" ? allRows.slice(0, 3) : allRows;
   const showInsight = mode !== "mini";
+  // البيانات الخام تملأ البطاقة في المراحل الأولى، وتتراجع حين تظهر مخرجات التحليل
+  const allMeta = meta ?? [];
+  const shownMeta =
+    metaReveal <= 0.01
+      ? []
+      : mode === "mini"
+        ? allMeta
+        : mode === "compact"
+          ? allMeta.slice(0, 3)
+          : [];
 
   return (
     <div
