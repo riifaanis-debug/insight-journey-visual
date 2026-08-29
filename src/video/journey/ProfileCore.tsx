@@ -72,11 +72,9 @@ export const ProfileCore: React.FC<ProfileState & { mode?: "full" | "compact" | 
   const shownMeta =
     metaReveal <= 0.01
       ? []
-      : mode === "mini"
-        ? allMeta
-        : mode === "compact"
-          ? allMeta.slice(0, 3)
-          : [];
+      : shownRows.length
+        ? [] // في الحالة التطبيقية تحل حقائق الحالة محل البيانات التعريفية
+        : allMeta.slice(0, mode === "full" ? 3 : 5);
 
   return (
     <div
