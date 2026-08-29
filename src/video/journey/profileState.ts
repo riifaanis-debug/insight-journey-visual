@@ -36,6 +36,16 @@ export const useProfileState = (): ProfileState => {
   const rows = inApplied ? CASE.facts : undefined;
   const rowsReveal = inApplied ? seg(f, at("a1", 24), at("a1", 120)) : 0;
 
+  // بيانات تعريفية خام تملأ البطاقة منذ استلام البيانات
+  const meta = PROFILE_META;
+  const metaReveal = inApplied
+    ? seg(f, at("a1", 16), at("a1", 90))
+    : seg(f, at("s01", 30), at("s01", 130));
+  const completeness =
+    0.35 +
+    0.5 * (inApplied ? appliedUnify : cycleUnify) +
+    0.15 * (inApplied ? appliedInsight : cycleInsight);
+
   const personaSwitch = seg(f, at("a12", 160), at("a12", 195));
   const persona = inApplied
     ? personaSwitch > 0.5
