@@ -59,7 +59,7 @@ export const LANDSCAPE: ScreenLayout = {
   camCYCenter: 540,
   // يستفيد من كامل الارتفاع المتبقي بعد شريط العناوين حتى تظهر البيانات أكبر
   zoomK: (c) =>
-    c.pos ? 1.3 : ((1080 - 330) / (1920 - c.widgetTop)) * (wideShot(c) ? 0.62 : 1.12),
+    c.pos ? 1.02 : ((1080 - 330) / (1920 - c.widgetTop)) * (wideShot(c) ? 0.62 : 1.12),
   widgetTop: 330,
   profLeft: 1505,
   profTop: 215,
