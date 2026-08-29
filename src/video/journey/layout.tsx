@@ -54,20 +54,20 @@ const wideShot = (c: { station: number | null; pos?: [number, number] | undefine
 export const LANDSCAPE: ScreenLayout = {
   w: 1920,
   h: 1080,
-  camCX: 620,
-  camCY: 250,
+  camCX: 600,
+  camCY: 300,
   camCYCenter: 540,
   // يستفيد من كامل الارتفاع المتبقي بعد شريط العناوين حتى تظهر البيانات أكبر
   zoomK: (c) =>
-    c.pos ? 1.15 : ((1080 - 350) / (1920 - c.widgetTop)) * (wideShot(c) ? 0.72 : 1),
-  widgetTop: 350,
-  profLeft: 1500,
-  profTop: 250,
-  profK: 0.8,
+    c.pos ? 1.35 : ((1080 - 300) / (1920 - c.widgetTop)) * (wideShot(c) ? 0.78 : 1.18),
+  widgetTop: 300,
+  profLeft: 1470,
+  profTop: 235,
+  profK: 1.06,
   titleTop: 40,
   titleLeft: 56,
   titleRight: 56,
-  titleK: 0.78,
+  titleK: 0.9,
 };
 
 

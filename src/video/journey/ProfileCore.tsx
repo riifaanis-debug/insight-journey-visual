@@ -19,6 +19,11 @@ export type ProfileState = {
   insight: number;
   rows?: { ar: string; en: string; v: string }[] | undefined;
   rowsReveal?: number;
+  /** بيانات تعريفية خام تظهر في المراحل الأولى */
+  meta?: { ar: string; en: string; v: string }[] | undefined;
+  metaReveal?: number;
+  /** نسبة اكتمال البيانات 0..1 */
+  completeness?: number;
   persona?: { ar: string; en: string } | null;
   personaIn?: number;
   score?: number | null;
